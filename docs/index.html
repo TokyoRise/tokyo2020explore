@@ -42,7 +42,7 @@
     </section>
 
     <div class="feature-grid">
-      <a class="feature-card" href="shop.html" style="background-image: url('https://static.wixstatic.com/media/90c0c4_268420522cc64925b21e0fb06eacc7fa~mv2.png/v1/fill/w_800,h_600,al_c,q_85/90c0c4_268420522cc64925b21e0fb06eacc7fa~mv2.png');">
+      <a class="feature-card" href="shop.html" style="background-image: url('https://static.wixstatic.com/media/90c0c4_c56f6c417cd445758557d9ed54042b55~mv2.png/v1/fill/w_800,h_640,al_c,q_85/90c0c4_c56f6c417cd445758557d9ed54042b55~mv2.png');">
         <span class="feature-card-label">ספר</span>
       </a>
       <a class="feature-card" href="about.html" style="background-image: url('https://static.wixstatic.com/media/90c0c4_9a079a3f1d3a44b29f716e3ef50cc1b5~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85/90c0c4_9a079a3f1d3a44b29f716e3ef50cc1b5~mv2.jpg');">
@@ -86,6 +86,44 @@
         <a href="blog.html" class="btn-more">כל הפוסטים &rarr;</a>
       </div>
     </section>
+
+    <section class="testimonials-section">
+      <div class="testimonials-carousel" id="testimonials">
+        <div class="testimonial-slide active">
+          <blockquote class="testimonial-quote">
+            <p>״ליאת, אלף תודות לך. עד שנפגשנו איתך ריחפנו מעל יפן בגובה רב. את קירבת את המבט שלנו באופן מובנה ומיוחד. האהבה שלך ליפן והתשוקה שלך לחלוק את האהבה הזאת, עם כישרון ביטוי ודיוק, הפכה את ההדרכה שלך לחוויה שתישאר איתנו. זה היה למעשה סמינר מהלך (עד שהרגלים כאבו.. אבל האזנים רצו לשמוע עוד ועוד)....״</p>
+            <cite>שולי, ירושלים</cite>
+          </blockquote>
+        </div>
+        <div class="testimonial-slide">
+          <blockquote class="testimonial-quote">
+            <p>"Those who are awake live in a state of constant amazement"</p>
+            <cite>Buddha</cite>
+          </blockquote>
+        </div>
+        <div class="testimonial-nav">
+          <button class="t-prev" aria-label="Previous">&#8249;</button>
+          <div class="t-dots">
+            <span class="t-dot active"></span>
+            <span class="t-dot"></span>
+          </div>
+          <button class="t-next" aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2 class="home-section-title">צרו קשר בכל עניין</h2>
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="שם" required />
+          <input type="email" name="email" placeholder="אימייל" required />
+        </div>
+        <input type="text" name="subject" placeholder="נושא" />
+        <textarea name="message" placeholder="הודעה" rows="5" required></textarea>
+        <button type="submit" class="btn-submit">שלח</button>
+      </form>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -99,6 +137,23 @@
     window.addEventListener('scroll', function() {
       document.querySelector('.site-header').classList.toggle('site-header--scrolled', window.scrollY > 60);
     });
+    // Testimonials carousel
+    (function() {
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const dots = document.querySelectorAll('.t-dot');
+      let current = 0;
+      function show(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+      document.querySelector('.t-next').addEventListener('click', () => show(current + 1));
+      document.querySelector('.t-prev').addEventListener('click', () => show(current - 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
+      setInterval(() => show(current + 1), 5000);
+    })();
   </script>
 </body>
 </html>
