@@ -52,20 +52,21 @@ img { display: block; max-width: 100%; height: auto; }
   gap: 32px;
 }
 
-/* Social icons on the left (RTL: visually right side) */
-.nav-social-left {
+/* TOKYO IS YOURS logo in nav */
+.nav-logo-img {
   display: flex;
-  gap: 14px;
   align-items: center;
   flex-shrink: 0;
 }
-.nav-social-left a {
-  color: rgba(255,255,255,0.8);
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
+.nav-logo-img img {
+  height: 32px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+  transition: opacity 0.2s;
 }
-.nav-social-left a:hover { color: #ffffff; }
+.nav-logo-img:hover img { opacity: 1; }
 
 .nav-logo a {
   font-size: 1.1rem;
