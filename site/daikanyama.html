@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>daikanyama — Tokyo 20/20 Explore</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <header class="site-header">
+    <div class="nav-inner">
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">בית</a></li>
+          <li><a href="about.html">אודות</a></li>
+          <li><a href="guide.html">מידע</a></li>
+          <li><a href="blog.html">בלוג</a></li>
+          <li><a href="shop.html">הספר</a></li>
+        </ul>
+      </nav>
+      <div class="nav-logo"><a href="index.html">Tokyo 20/20 Explore</a></div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main>
+    <div class="page-content"><div class="page-header"><h1>daikanyama</h1></div><div class="page-text"></div></div>
+  </main>
+  
+  <footer class="site-footer">
+    <span class="footer-copy">© Tokyo2020explore — כל הזכויות שמורות</span>
+  </footer>
+  
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
