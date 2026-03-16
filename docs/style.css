@@ -120,18 +120,28 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 }
 
 /* ===== FEATURE GRID (homepage) ===== */
+/* 6-column grid: first 3 cards span 2 cols each (full row),
+   last 2 cards span 3 cols each (centered row) */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0;
 }
 .feature-card {
   position: relative;
   display: block;
+  grid-column: span 2;
   aspect-ratio: 4/3;
   background-size: cover;
   background-position: center;
   overflow: hidden;
+}
+/* 4th card: starts at col 2, spans 2 → centered pair */
+.feature-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+.feature-card:nth-child(5) {
+  grid-column: 4 / span 2;
 }
 .feature-card::after {
   content: '';
@@ -156,6 +166,47 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   letter-spacing: 0.05em;
   padding: 20px;
   background: linear-gradient(transparent, rgba(0,0,0,0.5));
+}
+
+/* ===== QUOTE SECTION ===== */
+.quote-section {
+  padding: 72px 40px;
+  background: #f8f8f8;
+  text-align: center;
+}
+.site-quote {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+}
+.site-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6rem;
+  line-height: 1;
+  color: #cccccc;
+  font-family: Georgia, serif;
+}
+.site-quote p {
+  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: #222222;
+  font-style: italic;
+  padding-top: 40px;
+}
+.site-quote cite {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888888;
+  font-style: normal;
 }
 
 /* ===== HOME BLOG SECTION ===== */
@@ -452,4 +503,11 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .nav-toggle { display: flex; }
   .blog-grid { grid-template-columns: 1fr; }
   .page-content, .post-content, .shop-section { padding: 40px 20px 60px; }
+  /* Feature grid: stack all cards 1 per row on mobile */
+  .feature-grid { grid-template-columns: 1fr; }
+  .feature-card,
+  .feature-card:nth-child(4),
+  .feature-card:nth-child(5) { grid-column: 1; }
+  .home-blog { padding: 40px 20px; }
+  .quote-section { padding: 48px 24px; }
 }
