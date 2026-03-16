@@ -50,6 +50,7 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: center;
   justify-content: space-between;
   gap: 32px;
+  direction: ltr; /* logo left, menu right regardless of RTL body */
 }
 
 /* TOKYO IS YOURS logo in nav */
@@ -79,6 +80,7 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex;
   gap: 28px;
   list-style: none;
+  direction: rtl;
 }
 .nav-links a {
   font-size: 0.9rem;
