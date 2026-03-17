@@ -490,6 +490,96 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   border-radius: 4px;
 }
 
+/* ===== LIST PAGE (hotels, museums, etc.) ===== */
+.list-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 60px 32px 80px;
+}
+
+.list-page-header {
+  border: 1px solid #e0e0e0;
+  padding: 40px 48px;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.list-page-header h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.list-page-header p {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.list-entry {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid #e0e0e0;
+  direction: ltr;
+}
+
+.list-entry-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.list-entry-body {
+  direction: rtl;
+}
+
+.list-entry-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  margin-bottom: 6px;
+}
+
+.list-entry-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.list-entry-info {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.list-entry-info span {
+  display: block;
+}
+
+.list-entry-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+@media (max-width: 680px) {
+  .list-entry {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .list-page { padding: 40px 20px 60px; }
+  .list-page-header { padding: 28px 24px; }
+}
+
 /* ===== BLOG GRID ===== */
 .blog-grid {
   display: grid;
