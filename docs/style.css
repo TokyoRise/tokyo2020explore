@@ -464,21 +464,21 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 
 .page-hero-img img {
   width: 100%;
-  max-height: 500px;
+  aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 4px;
 }
 
 .page-text p {
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: var(--color-text);
-  line-height: 1.8;
+  line-height: 1.9;
   margin-bottom: 20px;
 }
 
 .page-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 12px;
   margin-top: 48px;
 }
@@ -488,6 +488,21 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: 4px;
+}
+
+/* ===== TOUR BACK LINK ===== */
+.tour-back-link {
+  display: inline-block;
+  margin: 32px 40px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.tour-back-link:hover {
+  text-decoration: underline;
 }
 
 /* ===== LIST PAGE (hotels, museums, etc.) ===== */
