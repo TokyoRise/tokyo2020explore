@@ -4,15 +4,315 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>אודות — Tokyo 20/20 Explore</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== ABOUT PAGE ===== */
+
+    /* Hero */
+    .about-hero {
+      position: relative;
+      height: 88vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .about-hero-bg {
+      position: absolute; inset: 0;
+    }
+    .about-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.45);
+    }
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 0 60px 72px;
+      animation: heroUp 1.2s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes heroUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .about-hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 16px;
+    }
+    .about-hero-title {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .about-hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .about-hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .about-hero-stat strong {
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .about-hero-stat span {
+      font-size: 0.78rem;
+      opacity: 0.65;
+      letter-spacing: 0.05em;
+    }
+
+    /* Scroll animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+
+    /* Intro split */
+    .about-intro {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 72px;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      align-items: center;
+      direction: ltr;
+    }
+    .about-intro-photo {
+      position: relative;
+    }
+    .about-intro-photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+    .about-intro-photo::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 60%;
+      height: 60%;
+      border: 2px solid var(--color-border);
+      z-index: -1;
+    }
+    .about-intro-text {
+      direction: rtl;
+    }
+    .about-intro-text .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+    }
+    .about-intro-text h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+    .about-intro-text p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--color-text);
+      margin-bottom: 16px;
+    }
+
+    /* Story blocks */
+    .about-story {
+      background: #f7f5f2;
+      padding: 80px 40px;
+    }
+    .story-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .story-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      direction: ltr;
+    }
+    .story-block.reverse {
+      direction: rtl;
+    }
+    .story-block .story-text {
+      direction: rtl;
+    }
+    .story-block .story-text h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--color-text);
+    }
+    .story-block .story-text p {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: var(--color-text);
+      margin-bottom: 14px;
+    }
+    .story-block .story-img img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Photo mosaic */
+    .about-mosaic {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 40px;
+    }
+    .about-mosaic h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .about-mosaic .mosaic-sub {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      margin-bottom: 48px;
+    }
+    .mosaic-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      gap: 8px;
+    }
+    .mosaic-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .mosaic-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .mosaic-item:hover img {
+      transform: scale(1.06);
+    }
+    .mosaic-item .mosaic-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 12px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .mosaic-item:hover .mosaic-label {
+      opacity: 1;
+    }
+    /* Mosaic layout spans */
+    .mosaic-item:nth-child(1) { grid-row: span 2; }
+    .mosaic-item:nth-child(5) { grid-row: span 2; }
+    .mosaic-item:nth-child(8) { grid-column: span 2; }
+
+    /* Testimonial */
+    .about-testimonial {
+      background: #111;
+      color: #fff;
+      padding: 100px 40px;
+      text-align: center;
+    }
+    .about-testimonial blockquote {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .about-testimonial .quote-mark {
+      font-size: 5rem;
+      line-height: 0.5;
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .about-testimonial p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+    .about-testimonial cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      font-style: normal;
+    }
+
+    /* CTA */
+    .about-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 80px 40px;
+      flex-wrap: wrap;
+    }
+    .about-cta h2 {
+      width: 100%;
+      text-align: center;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 800;
+      margin-bottom: 32px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-intro { grid-template-columns: 1fr; direction: rtl; }
+      .about-intro-photo::after { display: none; }
+      .story-block, .story-block.reverse { grid-template-columns: 1fr; direction: rtl; }
+      .about-hero-content { padding: 0 32px 56px; }
+    }
+    @media (max-width: 600px) {
+      .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .mosaic-item:nth-child(1), .mosaic-item:nth-child(5) { grid-row: span 1; }
+      .mosaic-item:nth-child(8) { grid-column: span 1; }
+      .about-hero-stats { gap: 24px; }
+    }
+  </style>
 </head>
 <body>
-  
-    <header class="site-header">
+
+  <header class="site-header">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo-img">
         <img src="https://static.wixstatic.com/media/90c0c4_8eb66fa0858445c581c52cba34494e43~mv2.png/v1/fit/w_900,h_540/90c0c4_8eb66fa0858445c581c52cba34494e43~mv2.png" alt="Tokyo Is Yours" />
@@ -20,7 +320,7 @@
       <nav>
         <ul class="nav-links" id="nav-links">
           <li><a href="index.html">עמוד הבית</a></li>
-          <li><a href="about.html">אודות</a></li>
+          <li><a href="about.html" class="active">אודות</a></li>
           <li><a href="shop.html">לרכישת הספר</a></li>
           <li><a href="projects-3.html">מסלולים</a></li>
           <li><a href="blog.html">בלוג</a></li>
@@ -30,36 +330,181 @@
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </header>
+
   <main>
-    <div class="page-content"><div class="page-header"><h1>אודות</h1><p class="page-desc">האתר מציע סיורים מודרכים ומסלולי טיול עצמאיים בטוקיו</p></div><div class="page-hero-img"><img src="https://static.wixstatic.com/media/90c0c4_8eb66fa0858445c581c52cba34494e43%7Emv2.png/v1/fit/w_2500,h_1330,al_c/90c0c4_8eb66fa0858445c581c52cba34494e43%7Emv2.png" alt="אודות" /></div><div class="page-text"><p>10  חנויות חווייתיות שכדאי לכם לחפש בטוקיו</p>
-<p>טוקיו זה גם שופינג. אבל מה שטוקיו מוכרת זה יותר ממותג - זו חווייה.</p>
-<p>מרמת השירות ועד איכות המוצר, מהניקיון והסדר על המדף ועד לאסטטיקה של האריזה, טוקיו מספקת חוויית קנייה שעוד טרם הכרתם. אינספור חנויות מרהיבות שהעיצוב שלהן משלים את המותג, והביקור בהן יכול להשתוות אף לסיור בגלריה לאמנות.</p>
-<p>אני מתגוררת בטוקיו עם משפחתי כבר יותר מעשר שנים.</p>
-<p>ליפן הגעתי בעקבות המשך לימודיו של בעלי, יפנולוג מוכשר, שאותו הכרתי במחלקה ללימודי מזרח אסיה של האוניברסיטה העברית בירושלים, שם למדתי דווקא שפה סינית בשילוב עם מנהל עסקים. הגענו לכאן כזוג טרי שתכנן חוויית רילוקיישן קצרה לפני שנתפנה להקים משפחה, אך כעבור עשור (ושני ילדים), אנחנו עדיין פה.</p>
-<p>לאחר מספר שנים ביפן וניסיון תעסוקתי קצר בעולם התאגידי היפני המשמים, ועם מבט אל עבר העתיד המרגש שהיה צפוי אז לטוקיו לקראת 2020, הגעתי למסקנה שלא תהיה הזדמנות מתאימה מזו להקים עסק עצמאי שישלב את כל התחומים שמעניינים אותי ושאני נהנית לעסוק בהם - עיצוב, עריכה, אוצרות, גילוי וטיולים. אספתי את כל החוויות והניסיון שצברתי בשנים הללו ביפן וגיבשתי את הפרויקט של TOKYO IS YOURS.</p>
-<p>הראשון מסוגו בעברית. הספר מציע 20 מסלולי סיור ב-20 שכונות שונות בעיר, בצירוף מפות, מתוך כוונה לפתוח למטייל העצמאי צוהר לאזורים נחבאים יותר ולאותן שכונות שבהן - לפחות בעיני - מתגלה הקסם הטוקיואי האמיתי.</p>
-<p>, אך הוא רק חלק קטן מפרויקט מולטימדיה רב-גוני שכולל גם את</p>
-<p>העוסק בתרבות האורבנית של טוקיו, את</p>
-<p>שמביא המלצות על אירועים עדכניים בטוקיו</p>
-<p>. במסגרת הפרויקט הזה אני מקווה לחשוף את המקומות, האנשים והסיפורים שהופכים את טוקיו לעיר דינמית, תוססת ומרתקת.</p>
-<p>מאז תחילתו של הפרויקט והוצאתו לאור של מדריך הטיולים לטוקיו, העיסוק שלי בתחום התיירות כולל בין היתר שירותי הדרכה, ייעוץ ובניית מסלולי טיול, הרצאות ועוד. באופן אישי זו הזדמנות נפלאה עבורי לשלב את הרקע מלימודיי עם המשיכה שתמיד הייתה לי לטייל ולחקור מקומות חדשים. גם אחרי עשור, אני עדיין מגלה מחדש את טוקיו מדי יום, ומוצאת השראה בשכונות, הסמטאות ושלל פינות החמד שהעיר מציעה.</p>
-<p>בסיורים המודרכים שאני עורכת בטוקיו אני משתדלת תמיד לשמור על איזון בין ההתלהבות הרבה שלי מיפן, לבין הביקורת שלי על החברה והתרבות היפנית, בעקבות ניסיון החיים שלנו פה כזרים.</p>
-<p>המטיילים שלי הם שותפים חשובים במסע הזה שכן הם תמיד מציעים לי תובנות טריות, מאתגרים את התפיסות שלי וגם מאפשרים לי לשמור על הזיקה אל הארץ והבית.</p>
-<p>אני מזמינה אתכם לעיין באתר ולהתחיל להתרגש כבר כעת מהמסע שלכם לטוקיו, וגם לעקוב אחרי עמוד הפייסבוק של</p>
-<p>שבו אני כותבת בקביעות המלצות על אירועים עדכניים בטוקיו, ועל הנושאים שמרתקים אותי בתרבות היפנית.</p>
-<p>עד שנפגשנו איתך ריחפנו מעל יפן בגובה רב. את קירבת את המבט שלנו באופן מובנה ומיוחד.</p>
-<p>האהבה שלך ליפן והתשוקה שלך לחלוק את האהבה הזאת, עם כישרון ביטוי ודיוק, הפכה את ההדרכה שלך לחוויה שתישאר איתנו. זה היה למעשה סמינר מהלך (עד שהרגלים כאבו.. אבל האזנים רצו לשמוע עוד ועוד)....״</p>
-</div><div class="page-gallery"><img src="https://static.wixstatic.com/media/90c0c4_225858d0e38d42e5bda6a18f36dc2a45~mv2.png/v1/fill/w_240,h_234,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/90c0c4_225858d0e38d42e5bda6a18f36dc2a45~mv2.png" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_85997e82379e4641a95e5a7859c7fb89~mv2.jpg/v1/fill/w_160,h_220,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_5940_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_3f024153ca2c4d7193f0e32af2d4e15e~mv2.png/v1/fill/w_435,h_288,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screen%20Shot%202019-03-03%20at%208_01_17%20PM.png" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_4f575f148ad9497db999bbc859044ea9~mv2.jpg/v1/fill/w_285,h_288,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_9443.jpg" alt="" loading="lazy" /></div></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="about-hero">
+      <div class="about-hero-bg">
+        <img src="https://static.wixstatic.com/media/90c0c4_17af723ddffa43d8ad4bd2c1548f796c~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_85/90c0c4_17af723ddffa43d8ad4bd2c1548f796c~mv2.jpg" alt="טוקיו" />
+      </div>
+      <div class="about-hero-content">
+        <p class="about-hero-eyebrow">TOKYO IS YOURS</p>
+        <h1 class="about-hero-title">אודות</h1>
+        <div class="about-hero-stats">
+          <div class="about-hero-stat">
+            <strong>10+</strong>
+            <span>שנים בטוקיו</span>
+          </div>
+          <div class="about-hero-stat">
+            <strong>20</strong>
+            <span>שכונות בספר</span>
+          </div>
+          <div class="about-hero-stat">
+            <strong>1</strong>
+            <span>ספר עברי ראשון מסוגו</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INTRO ===== -->
+    <section class="about-intro reveal">
+      <div class="about-intro-photo">
+        <img src="https://static.wixstatic.com/media/90c0c4_85997e82379e4641a95e5a7859c7fb89~mv2.jpg/v1/fill/w_680,h_900,al_c,q_85/90c0c4_85997e82379e4641a95e5a7859c7fb89~mv2.jpg" alt="ליאת" />
+      </div>
+      <div class="about-intro-text">
+        <p class="eyebrow">THE GUIDE BEHIND THE GUIDE</p>
+        <h2>אני מתגוררת בטוקיו עם משפחתי כבר יותר מעשר שנים</h2>
+        <p>ליפן הגעתי בעקבות המשך לימודיו של בעלי, יפנולוג מוכשר, שאותו הכרתי במחלקה ללימודי מזרח אסיה של האוניברסיטה העברית בירושלים, שם למדתי שפה סינית בשילוב עם מנהל עסקים. הגענו לכאן כזוג טרי שתכנן חוויית רילוקיישן קצרה לפני שנתפנה להקים משפחה, אך כעבור עשור ושני ילדים — אנחנו עדיין פה.</p>
+        <p>גם אחרי עשור, אני עדיין מגלה מחדש את טוקיו מדי יום, ומוצאת השראה בשכונות, הסמטאות ושלל פינות החמד שהעיר מציעה.</p>
+      </div>
+    </section>
+
+    <!-- ===== STORY ===== -->
+    <section class="about-story">
+      <div class="story-inner">
+
+        <div class="story-block reveal">
+          <div class="story-text">
+            <h3>הפרויקט</h3>
+            <p>לאחר מספר שנים ביפן וניסיון תעסוקתי קצר בעולם התאגידי היפני המשמים, ועם מבט אל עבר העתיד המרגש שהיה צפוי לטוקיו לקראת 2020, הגעתי למסקנה שלא תהיה הזדמנות מתאימה מזו להקים עסק עצמאי שישלב את כל התחומים שמעניינים אותי — עיצוב, עריכה, אוצרות, גילוי וטיולים.</p>
+            <p>אספתי את כל החוויות והניסיון שצברתי בשנים הללו ביפן וגיבשתי את הפרויקט של <strong>TOKYO IS YOURS</strong>.</p>
+          </div>
+          <div class="story-img">
+            <img src="https://static.wixstatic.com/media/90c0c4_3f024153ca2c4d7193f0e32af2d4e15e~mv2.png/v1/fill/w_800,h_600,al_c,q_85/90c0c4_3f024153ca2c4d7193f0e32af2d4e15e~mv2.png" alt="הספר" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="story-block reverse reveal reveal-delay-1">
+          <div class="story-text">
+            <h3>הספר</h3>
+            <p>הראשון מסוגו בעברית. הספר מציע 20 מסלולי סיור ב-20 שכונות שונות בעיר, בצירוף מפות, מתוך כוונה לפתוח למטייל העצמאי צוהר לאזורים נחבאים יותר ולאותן שכונות שבהן מתגלה הקסם הטוקיואי האמיתי.</p>
+            <p>במסגרת הפרויקט אני מקווה לחשוף את המקומות, האנשים והסיפורים שהופכים את טוקיו לעיר דינמית, תוססת ומרתקת.</p>
+          </div>
+          <div class="story-img">
+            <img src="https://static.wixstatic.com/media/90c0c4_4f575f148ad9497db999bbc859044ea9~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85/90c0c4_4f575f148ad9497db999bbc859044ea9~mv2.jpg" alt="טוקיו" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="story-block reveal reveal-delay-2">
+          <div class="story-text">
+            <h3>הסיורים</h3>
+            <p>מאז תחילתו של הפרויקט, העיסוק שלי בתחום התיירות כולל בין היתר שירותי הדרכה, ייעוץ ובניית מסלולי טיול, הרצאות ועוד.</p>
+            <p>בסיורים המודרכים שאני עורכת בטוקיו אני משתדלת תמיד לשמור על איזון בין ההתלהבות הרבה שלי מיפן, לבין הביקורת שלי על החברה והתרבות היפנית, בעקבות ניסיון החיים שלנו פה כזרים.</p>
+            <p>המטיילים שלי הם שותפים חשובים במסע הזה שכן הם תמיד מציעים לי תובנות טריות, מאתגרים את התפיסות שלי וגם מאפשרים לי לשמור על הזיקה אל הארץ והבית.</p>
+          </div>
+          <div class="story-img">
+            <img src="https://static.wixstatic.com/media/90c0c4_1c2fd26ddd404c338932f98d55d1d680~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85/90c0c4_1c2fd26ddd404c338932f98d55d1d680~mv2.jpg" alt="אסאקוסה" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PHOTO MOSAIC ===== -->
+    <section class="about-mosaic reveal">
+      <h2>20 שכונות — אינספור מראות</h2>
+      <p class="mosaic-sub">כל שכונה עולם בפני עצמה</p>
+      <div class="mosaic-grid">
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_17af723ddffa43d8ad4bd2c1548f796c~mv2.jpg/v1/fill/w_600,h_500,al_c,q_85/90c0c4_17af723ddffa43d8ad4bd2c1548f796c~mv2.jpg" alt="Shimokitazawa" loading="lazy" />
+          <span class="mosaic-label">Shimokitazawa</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_d175196d36d7419caccb592872dd7f37~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_d175196d36d7419caccb592872dd7f37~mv2.jpg" alt="Omotesando" loading="lazy" />
+          <span class="mosaic-label">Omotesando</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_98bbe99084044b8d9d6232e4bc7e526a~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_98bbe99084044b8d9d6232e4bc7e526a~mv2.jpg" alt="Jimbocho" loading="lazy" />
+          <span class="mosaic-label">Jimbocho</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_0609409add2e41d3bbe23fa4becef370~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_0609409add2e41d3bbe23fa4becef370~mv2.jpg" alt="Shibuya" loading="lazy" />
+          <span class="mosaic-label">Shibuya</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_150dfc43162d435e86a31c2d149a9b2c~mv2.jpg/v1/fill/w_600,h_500,al_c,q_85/90c0c4_150dfc43162d435e86a31c2d149a9b2c~mv2.jpg" alt="Ueno" loading="lazy" />
+          <span class="mosaic-label">Ueno</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_625b3093b7ad456eb512f2ff800c59c7~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_625b3093b7ad456eb512f2ff800c59c7~mv2.jpg" alt="Kagurazaka" loading="lazy" />
+          <span class="mosaic-label">Kagurazaka</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_3fcb5b2ec9b54bb884add59693a6c0a5~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_3fcb5b2ec9b54bb884add59693a6c0a5~mv2.jpg" alt="Yanaka" loading="lazy" />
+          <span class="mosaic-label">Yanaka</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_9a13add3d48946788b81fe2a53e79dd3~mv2.jpg/v1/fill/w_1200,h_260,al_c,q_85/90c0c4_9a13add3d48946788b81fe2a53e79dd3~mv2.jpg" alt="Kichijoji" loading="lazy" />
+          <span class="mosaic-label">Kichijoji</span>
+        </div>
+
+        <div class="mosaic-item">
+          <img src="https://static.wixstatic.com/media/90c0c4_3a1afa8cebb5461ab8daae70ffb95e5e~mv2.jpg/v1/fill/w_600,h_260,al_c,q_85/90c0c4_3a1afa8cebb5461ab8daae70ffb95e5e~mv2.jpg" alt="Jiyugaoka" loading="lazy" />
+          <span class="mosaic-label">Jiyugaoka</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIAL ===== -->
+    <section class="about-testimonial reveal">
+      <blockquote>
+        <span class="quote-mark">"</span>
+        <p>עד שנפגשנו איתך ריחפנו מעל יפן בגובה רב. את קירבת את המבט שלנו באופן מובנה ומיוחד. האהבה שלך ליפן והתשוקה שלך לחלוק את האהבה הזאת, עם כישרון ביטוי ודיוק, הפכה את ההדרכה שלך לחוויה שתישאר איתנו. זה היה למעשה סמינר מהלך — עד שהרגלים כאבו, אבל האוזניים רצו לשמוע עוד ועוד.</p>
+        <cite>— משתתפת בסיור מודרך</cite>
+      </blockquote>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="about-cta reveal">
+      <h2>רוצים להתחיל לחקור?</h2>
+      <a class="btn-buy" href="projects-3.html">20 מסלולי טיול</a>
+      <a class="btn-buy-outline" href="shop.html">לרכישת הספר</a>
+    </section>
+
   </main>
-  
+
   <footer class="site-footer">
     <span class="footer-copy">© Tokyo2020explore — כל הזכויות שמורות</span>
   </footer>
-  
-    <script>
+
+  <script>
+    // Mobile nav
     document.getElementById('nav-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('open');
     });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
