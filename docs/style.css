@@ -814,9 +814,9 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 }
 
 .post-content {
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 56px 32px 100px;
+  padding: 60px 40px 120px;
 }
 
 .back-link {
@@ -862,8 +862,10 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   font-size: clamp(1.9rem, 4.5vw, 3rem);
   font-weight: 800;
   line-height: 1.18;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   letter-spacing: -0.01em;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #e8e4de;
 }
 
 /* Legacy post-date (for posts without post-meta) */
@@ -885,7 +887,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   display: block;
 }
 
-/* Drop cap on first paragraph */
+/* Drop cap on first paragraph (Hebrew RTL — floats right) */
 .post-body > p:first-child::first-letter {
   font-size: 3.4em;
   font-weight: 800;
@@ -895,12 +897,27 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   margin-top: 6px;
   color: #111;
 }
+/* No drop cap for LTR opening paragraphs (e.g. English quotes) */
+.post-body > p.post-opening-quote::first-letter {
+  all: unset;
+}
+
+/* Opening quote style (LTR, e.g. English movie quotes) */
+.post-opening-quote {
+  direction: ltr;
+  font-style: italic;
+  color: var(--color-muted);
+  font-size: 1rem;
+  border-right: none;
+  padding: 0;
+  margin-bottom: 32px;
+}
 
 .post-body p {
-  font-size: 1.05rem;
-  line-height: 1.9;
-  margin-bottom: 28px;
-  color: #222;
+  font-size: 1.1rem;
+  line-height: 2;
+  margin-bottom: 32px;
+  color: #1a1a1a;
 }
 
 /* Pullquote */
