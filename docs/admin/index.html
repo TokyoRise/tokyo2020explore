@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tokyo 20/20 — ניהול תוכן</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sidebar-w: 220px;
+      --bg: #f5f4f1;
+      --sidebar-bg: #1a1a1a;
+      --sidebar-txt: #e0ddd8;
+      --sidebar-active: #fff;
+      --accent: #c0392b;
+      --border: #ddd;
+      --card-bg: #fff;
+      --input-bg: #fff;
+      --text: #1a1a1a;
+      --muted: #666;
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; }
+
+    /* Sidebar */
+    #sidebar {
+      width: var(--sidebar-w); min-height: 100vh; background: var(--sidebar-bg);
+      color: var(--sidebar-txt); display: flex; flex-direction: column;
+      position: fixed; top: 0; right: 0; z-index: 100;
+    }
+    .sidebar-logo { padding: 24px 20px 16px; border-bottom: 1px solid #333; }
+    .sidebar-logo span { display: block; font-size: 0.7rem; color: #888; margin-top: 4px; }
+    .sidebar-logo strong { font-size: 1rem; color: var(--sidebar-active); }
+    .sidebar-nav { flex: 1; padding: 16px 0; }
+    .nav-section { font-size: 0.65rem; color: #555; text-transform: uppercase; letter-spacing: 1px; padding: 12px 20px 4px; }
+    .sidebar-nav a {
+      display: block; padding: 10px 20px; color: var(--sidebar-txt);
+      text-decoration: none; font-size: 0.9rem; border-right: 3px solid transparent;
+      transition: background 0.15s, color 0.15s;
+    }
+    .sidebar-nav a:hover { background: #2a2a2a; color: var(--sidebar-active); }
+    .sidebar-nav a.active { background: #2a2a2a; color: var(--sidebar-active); border-right-color: var(--accent); }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid #333; font-size: 0.78rem; color: #666; }
+    #logged-in-as { font-size: 0.75rem; color: #888; }
+
+    /* Main */
+    #main { margin-right: var(--sidebar-w); flex: 1; min-height: 100vh; }
+
+    /* Panels */
+    .panel { display: none; padding: 40px 48px; max-width: 900px; }
+    .panel.active { display: block; }
+    .panel-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .panel-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 32px; }
+
+    /* Login */
+    #panel-login { max-width: 460px; padding: 80px 40px; }
+    #panel-login .panel-title { font-size: 1.4rem; margin-bottom: 24px; }
+    .login-field label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+    .login-field input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; background: var(--input-bg); }
+    .login-field { margin-bottom: 16px; }
+    .btn { display: inline-block; padding: 10px 24px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: background 0.15s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #a93226; }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #f0eeec; }
+    .btn-danger { background: #e74c3c; color: #fff; }
+    .btn-danger:hover { background: #c0392b; }
+    .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+    .btn + .btn { margin-right: 8px; }
+
+    /* Cards / lists */
+    .item-list { list-style: none; }
+    .item-row {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px;
+    }
+    .item-row .item-img { width: 80px; height: 56px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+    .item-row .item-info { flex: 1; min-width: 0; }
+    .item-row .item-title { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-row .item-meta { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+    /* Forms */
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 0.95rem; background: var(--input-bg); font-family: inherit;
+    }
+    .form-group textarea { resize: vertical; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 28px; margin-bottom: 24px; }
+    .section-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+    /* Editor */
+    #post-editor { display: none; }
+    #post-editor.active { display: block; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      background: #1a1a1a; color: #fff; padding: 12px 28px; border-radius: 8px;
+      font-size: 0.9rem; z-index: 9999; opacity: 0; transition: opacity 0.25s;
+      pointer-events: none; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; }
+    #toast.error { background: var(--accent); }
+
+    /* Spinner */
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Blog post body editor note */
+    .body-note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 6px; padding: 10px 14px; font-size: 0.8rem; color: #7a6020; margin-bottom: 8px; }
+
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; background: #e8e4de; color: #555; margin-left: 6px; }
+
+    .sep { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.85rem; cursor: pointer; margin-bottom: 24px; background: none; border: none; padding: 0; }
+    .back-btn:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <strong>Tokyo 20/20</strong>
+    <span>ניהול תוכן</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">תוכן</div>
+    <a href="#" data-panel="blog" class="nav-link">✍️ בלוג</a>
+    <a href="#" data-panel="recommendations" class="nav-link">📍 המלצות</a>
+    <a href="#" data-panel="itineraries" class="nav-link">🗺️ מסלולים</a>
+    <div class="nav-section" style="margin-top:16px;">הגדרות</div>
+    <a href="#" data-panel="settings" class="nav-link">🔑 חשבון GitHub</a>
+  </div>
+  <div class="sidebar-footer">
+    <div id="logged-in-as"></div>
+  </div>
+</nav>
+
+<!-- Main -->
+<main id="main">
+
+  <!-- Login panel -->
+  <div id="panel-login" class="panel active">
+    <div class="panel-title">ברוכים הבאים</div>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:28px;">התחברו עם GitHub Personal Access Token כדי להתחיל לערוך תוכן.</p>
+    <div class="login-field">
+      <label>שם המשתמש ב-GitHub</label>
+      <input type="text" id="gh-user" placeholder="TokyoRise" value="TokyoRise" />
+    </div>
+    <div class="login-field">
+      <label>שם הריפו</label>
+      <input type="text" id="gh-repo" placeholder="tokyo2020explore" value="tokyo2020explore" />
+    </div>
+    <div class="login-field">
+      <label>Personal Access Token</label>
+      <input type="password" id="gh-token" placeholder="ghp_..." autocomplete="off" />
+    </div>
+    <button class="btn btn-primary" onclick="doLogin()">התחברות</button>
+    <p style="margin-top:16px;font-size:0.78rem;color:var(--muted);">הטוקן נשמר רק ב-localStorage של הדפדפן שלך.</p>
+  </div>
+
+  <!-- Settings panel -->
+  <div id="panel-settings" class="panel">
+    <div class="panel-title">חשבון GitHub</div>
+    <div class="section-card">
+      <h3>חיבור לריפו</h3>
+      <div class="form-group">
+        <label>שם משתמש</label>
+        <input type="text" id="s-user" />
+      </div>
+      <div class="form-group">
+        <label>שם ריפו</label>
+        <input type="text" id="s-repo" />
+      </div>
+      <div class="form-group">
+        <label>Personal Access Token</label>
+        <input type="password" id="s-token" />
+      </div>
+      <button class="btn btn-primary" onclick="saveSettings()">שמירה</button>
+      <button class="btn btn-secondary" onclick="doLogout()">התנתקות</button>
+    </div>
+  </div>
+
+  <!-- Blog panel -->
+  <div id="panel-blog" class="panel">
+    <div id="blog-list-view">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <div class="panel-title">בלוג</div>
+          <div class="panel-desc">עריכת פוסטים קיימים או יצירת פוסט חדש</div>
+        </div>
+        <button class="btn btn-primary" onclick="showNewPostForm()">+ פוסט חדש</button>
+      </div>
+      <div id="blog-list-content"><span class="spinner"></span></div>
+    </div>
+
+    <div id="blog-edit-view" style="display:none;">
+      <button class="back-btn" onclick="showBlogList()">← חזרה לרשימה</button>
+      <div class="panel-title" id="edit-view-title">עריכת פוסט</div>
+      <div class="panel-desc" id="edit-view-filename"></div>
+
+      <div class="section-card">
+        <h3>פרטי הפוסט</h3>
+        <div class="form-group">
+          <label>כותרת</label>
+          <input type="text" id="edit-title" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>תאריך <span style="font-weight:400">(אופציונלי)</span></label>
+            <input type="text" id="edit-date" placeholder="30 במאי 2019" />
+          </div>
+          <div class="form-group">
+            <label>קטגוריה <span style="font-weight:400">(לכרטיס בבלוג)</span></label>
+            <input type="text" id="edit-cat" placeholder="תרבות · אנשים" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>URL של תמונה ראשית <span style="font-weight:400">(אופציונלי)</span></label>
+          <input type="text" id="edit-img" placeholder="https://static.wixstatic.com/..." />
+        </div>
+        <div class="form-group">
+          <label>קטע תקציר <span style="font-weight:400">(לכרטיס בבלוג)</span></label>
+          <textarea id="edit-excerpt" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>תוכן הפוסט</h3>
+        <div class="body-note">כתבו כל פסקה בשורה נפרדת. HTML בסיסי כמו &lt;strong&gt;, &lt;em&gt;, &lt;a href="..."&gt; נתמך.</div>
+        <div class="form-group">
+          <textarea id="edit-body" rows="20" dir="rtl" style="font-size:0.9rem;line-height:1.7;"></textarea>
+          <div class="form-hint">כל שורה ריקה = פסקה חדשה. שורה שמתחילה ב- &lt;p&gt; תיקלט כ-HTML.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;" id="edit-actions">
+        <button class="btn btn-primary" onclick="savePost()">שמירה ופרסום</button>
+        <button class="btn btn-secondary" onclick="showBlogList()">ביטול</button>
+        <span id="save-status"></span>
+      </div>
+      <input type="hidden" id="edit-filepath" />
+      <input type="hidden" id="edit-sha" />
+      <input type="hidden" id="edit-mode" value="edit" />
+    </div>
+  </div>
+
+  <!-- Recommendations panel -->
+  <div id="panel-recommendations" class="panel">
+    <div class="panel-title">המלצות</div>
+    <div class="panel-desc">ערכו את הכרטיסים בדף המלצות</div>
+    <div id="rec-content"><span class="spinner"></span></div>
+    <div id="rec-actions" style="display:none;margin-top:24px;">
+      <button class="btn btn-primary" onclick="saveRecommendations()">שמירה ופרסום</button>
+      <button class="btn btn-secondary" onclick="loadRecommendations()">ביטול שינויים</button>
+    </div>
+  </div>
+
+  <!-- Itineraries panel -->
+  <div id="panel-itineraries" class="panel">
+    <div class="panel-title">מסלולים</div>
+    <div class="panel-desc">ערכו את כרטיסי המסלולים</div>
+    <div id="itin-content"><span class="spinner"></span></div>
+    <div id="itin-actions" style="display:none;margin-top:24px;">
+      <button class="btn btn-primary" onclick="saveItineraries()">שמירה ופרסום</button>
+      <button class="btn btn-secondary" onclick="loadItineraries()">ביטול שינויים</button>
+    </div>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+// ─── Config ───────────────────────────────────────────────────────────────────
+const REPO_BRANCH = 'main';
+const DOCS_PREFIX = 'docs/';
+
+function cfg() {
+  return {
+    user: localStorage.getItem('gh_user') || '',
+    repo: localStorage.getItem('gh_repo') || '',
+    token: localStorage.getItem('gh_token') || '',
+  };
+}
+
+function isLoggedIn() {
+  const c = cfg();
+  return !!(c.user && c.repo && c.token);
+}
+
+// ─── API ──────────────────────────────────────────────────────────────────────
+async function apiRequest(method, path, body) {
+  const { user, repo, token } = cfg();
+  const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+  const opts = {
+    method,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `HTTP ${res.status}`);
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+async function readFile(path) {
+  const data = await apiRequest('GET', path);
+  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+  return { content, sha: data.sha };
+}
+
+async function writeFile(path, content, sha, message) {
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+  const body = { message, content: encoded, branch: REPO_BRANCH };
+  if (sha) body.sha = sha;
+  return apiRequest('PUT', path, body);
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, isError) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show' + (isError ? ' error' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ''; }, 3200);
+}
+
+// ─── Auth ─────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const user = document.getElementById('gh-user').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  const token = document.getElementById('gh-token').value.trim();
+  if (!user || !repo || !token) { toast('נא למלא את כל השדות', true); return; }
+  localStorage.setItem('gh_user', user);
+  localStorage.setItem('gh_repo', repo);
+  localStorage.setItem('gh_token', token);
+  initApp();
+}
+
+function doLogout() {
+  localStorage.removeItem('gh_token');
+  location.reload();
+}
+
+function saveSettings() {
+  localStorage.setItem('gh_user', document.getElementById('s-user').value.trim());
+  localStorage.setItem('gh_repo', document.getElementById('s-repo').value.trim());
+  localStorage.setItem('gh_token', document.getElementById('s-token').value.trim());
+  toast('הגדרות נשמרו');
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  document.querySelector(`.nav-link[data-panel="${id}"]`)?.classList.add('active');
+
+  if (id === 'blog') loadBlogList();
+  if (id === 'recommendations') loadRecommendations();
+  if (id === 'itineraries') loadItineraries();
+  if (id === 'settings') fillSettings();
+}
+
+document.querySelectorAll('.nav-link').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    showPanel(a.dataset.panel);
+  });
+});
+
+function fillSettings() {
+  const c = cfg();
+  document.getElementById('s-user').value = c.user;
+  document.getElementById('s-repo').value = c.repo;
+  document.getElementById('s-token').value = c.token;
+}
+
+function initApp() {
+  if (!isLoggedIn()) return;
+  document.getElementById('panel-login').classList.remove('active');
+  document.getElementById('logged-in-as').textContent = cfg().user + '/' + cfg().repo;
+  showPanel('blog');
+}
+
+// ─── Blog ─────────────────────────────────────────────────────────────────────
+let blogIndexSha = null;
+let blogPosts = []; // {title, href, img, cat, date, excerpt}
+
+async function loadBlogList() {
+  const el = document.getElementById('blog-list-content');
+  el.innerHTML = '<span class="spinner"></span>';
+  try {
+    const { content, sha } = await readFile('docs/blog.html');
+    blogIndexSha = sha;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+
+    blogPosts = [];
+
+    // Featured
+    const featured = doc.querySelector('.blog-featured');
+    if (featured) {
+      const img = featured.querySelector('img');
+      const h2 = featured.querySelector('h2');
+      const href = featured.getAttribute('href');
+      const cat = featured.querySelector('.blog-featured-cat')?.textContent || '';
+      const date = featured.querySelector('.blog-featured-date')?.textContent || '';
+      const p = featured.querySelector('p')?.textContent || '';
+      if (href && h2) blogPosts.push({ title: h2.textContent, href, img: img?.src || '', cat, date, excerpt: p, featured: true });
+    }
+
+    // Grid cards
+    doc.querySelectorAll('.blog-card').forEach(card => {
+      const href = card.getAttribute('href');
+      const img = card.querySelector('img');
+      const h2 = card.querySelector('h2');
+      const cat = card.querySelector('.blog-card-cat')?.textContent || '';
+      const date = card.querySelector('.blog-date')?.textContent || '';
+      const p = card.querySelector('p')?.textContent || '';
+      if (href && h2) blogPosts.push({ title: h2.textContent, href, img: img?.src || '', cat, date, excerpt: p });
+    });
+
+    renderBlogList(el);
+  } catch (e) {
+    el.innerHTML = `<p style="color:red">שגיאה: ${e.message}</p>`;
+  }
+}
+
+function renderBlogList(el) {
+  if (!blogPosts.length) { el.innerHTML = '<p>לא נמצאו פוסטים.</p>'; return; }
+  const ul = document.createElement('ul');
+  ul.className = 'item-list';
+  blogPosts.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.className = 'item-row';
+    li.innerHTML = `
+      ${p.img ? `<img class="item-img" src="${escHtml(p.img)}" alt="" onerror="this.style.display='none'" />` : ''}
+      <div class="item-info">
+        <div class="item-title">${escHtml(p.title)} ${p.featured ? '<span class="tag">נבחר</span>' : ''}</div>
+        <div class="item-meta">${p.cat ? escHtml(p.cat) + ' · ' : ''}${p.date ? escHtml(p.date) + ' · ' : ''}<span style="color:#aaa">${escHtml(p.href)}</span></div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-secondary btn-sm" onclick="editPost(${i})">עריכה</button>
+      </div>`;
+    ul.appendChild(li);
+  });
+  el.innerHTML = '';
+  el.appendChild(ul);
+}
+
+function showBlogList() {
+  document.getElementById('blog-list-view').style.display = '';
+  document.getElementById('blog-edit-view').style.display = 'none';
+}
+
+async function editPost(idx) {
+  const post = blogPosts[idx];
+  document.getElementById('blog-list-view').style.display = 'none';
+  document.getElementById('blog-edit-view').style.display = '';
+  document.getElementById('edit-view-title').textContent = 'עריכת פוסט';
+  document.getElementById('edit-view-filename').textContent = post.href;
+  document.getElementById('edit-mode').value = 'edit';
+
+  // Fill metadata from blog index
+  document.getElementById('edit-title').value = post.title;
+  document.getElementById('edit-date').value = post.date;
+  document.getElementById('edit-cat').value = post.cat;
+  document.getElementById('edit-img').value = post.img;
+  document.getElementById('edit-excerpt').value = post.excerpt;
+
+  // Load post file
+  const filepath = 'docs/' + post.href;
+  document.getElementById('edit-filepath').value = filepath;
+  document.getElementById('edit-body').value = 'טוען...';
+  document.getElementById('edit-sha').value = '';
+
+  try {
+    const { content, sha } = await readFile(filepath);
+    document.getElementById('edit-sha').value = sha;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const bodyEl = doc.querySelector('.post-body');
+    if (bodyEl) {
+      // Extract paragraphs
+      const paras = [];
+      bodyEl.querySelectorAll('p').forEach(p => paras.push(p.innerHTML.trim()));
+      document.getElementById('edit-body').value = paras.join('\n\n');
+    } else {
+      document.getElementById('edit-body').value = '';
+    }
+  } catch (e) {
+    document.getElementById('edit-body').value = '';
+    toast('לא ניתן לטעון את הפוסט: ' + e.message, true);
+  }
+}
+
+function showNewPostForm() {
+  document.getElementById('blog-list-view').style.display = 'none';
+  document.getElementById('blog-edit-view').style.display = '';
+  document.getElementById('edit-view-title').textContent = 'פוסט חדש';
+  document.getElementById('edit-view-filename').textContent = '';
+  document.getElementById('edit-mode').value = 'new';
+  document.getElementById('edit-title').value = '';
+  document.getElementById('edit-date').value = '';
+  document.getElementById('edit-cat').value = '';
+  document.getElementById('edit-img').value = '';
+  document.getElementById('edit-excerpt').value = '';
+  document.getElementById('edit-body').value = '';
+  document.getElementById('edit-filepath').value = '';
+  document.getElementById('edit-sha').value = '';
+}
+
+async function savePost() {
+  const mode = document.getElementById('edit-mode').value;
+  const title = document.getElementById('edit-title').value.trim();
+  const date = document.getElementById('edit-date').value.trim();
+  const cat = document.getElementById('edit-cat').value.trim();
+  const imgUrl = document.getElementById('edit-img').value.trim();
+  const excerpt = document.getElementById('edit-excerpt').value.trim();
+  const rawBody = document.getElementById('edit-body').value;
+
+  if (!title) { toast('נא להזין כותרת', true); return; }
+
+  const statusEl = document.getElementById('save-status');
+  statusEl.innerHTML = '<span class="spinner"></span>';
+
+  try {
+    // Build HTML body from paragraphs
+    const paragraphs = rawBody.split(/\n\s*\n/).filter(p => p.trim());
+    const bodyHtml = paragraphs.map(p => {
+      p = p.trim();
+      if (p.startsWith('<p')) return p;
+      return `<p>${p}</p>`;
+    }).join('\n');
+
+    if (mode === 'new') {
+      // Generate filename
+      const slug = slugify(title);
+      const filename = `blog/${slug}.html`;
+      const filepath = `docs/${filename}`;
+      const html = buildPostHtml(title, date, imgUrl, bodyHtml);
+
+      // Check if file exists
+      let existingSha = null;
+      try {
+        const existing = await readFile(filepath);
+        existingSha = existing.sha;
+      } catch (_) {}
+
+      await writeFile(filepath, html, existingSha, `הוספת פוסט: ${title}`);
+
+      // Inject card into blog.html
+      await injectBlogCard({ title, href: filename, img: imgUrl, cat, date, excerpt });
+
+      toast('הפוסט נוצר ופורסם!');
+    } else {
+      // Edit existing post
+      const filepath = document.getElementById('edit-filepath').value;
+      const sha = document.getElementById('edit-sha').value;
+      if (!filepath || !sha) { toast('שגיאה: לא ניתן לזהות את הקובץ', true); return; }
+
+      // Read current file and update sections
+      const { content: currentHtml, sha: currentSha } = await readFile(filepath);
+      const updatedHtml = updatePostHtml(currentHtml, title, date, imgUrl, bodyHtml);
+
+      await writeFile(filepath, updatedHtml, currentSha, `עדכון פוסט: ${title}`);
+
+      // Update blog.html card
+      const href = filepath.replace('docs/', '');
+      await updateBlogCard({ href, title, img: imgUrl, cat, date, excerpt });
+
+      document.getElementById('edit-sha').value = currentSha;
+      toast('הפוסט עודכן ופורסם!');
+    }
+    statusEl.innerHTML = '';
+    await loadBlogList();
+  } catch (e) {
+    statusEl.innerHTML = '';
+    toast('שגיאה בשמירה: ' + e.message, true);
+  }
+}
+
+function buildPostHtml(title, date, imgUrl, bodyHtml) {
+  const heroTag = imgUrl ? `<img class="post-hero-full" src="${escHtml(imgUrl)}" alt="${escHtml(title)}" />\n    ` : '';
+  const metaTag = date ? `<div class="post-meta"><span class="post-meta-date">${escHtml(date)}</span></div>` : '';
+  return `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escHtml(title)} — Tokyo 20/20 Explore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo-img">
+        <img src="https://static.wixstatic.com/media/90c0c4_8eb66fa0858445c581c52cba34494e43~mv2.png/v1/fit/w_900,h_540/90c0c4_8eb66fa0858445c581c52cba34494e43~mv2.png" alt="Tokyo Is Yours" />
+      </a>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html">עמוד הבית</a></li>
+          <li><a href="../about.html">אודות</a></li>
+          <li><a href="../shop.html">לרכישת הספר</a></li>
+          <li><a href="../projects-3.html">מסלולים</a></li>
+          <li><a href="../blog.html">בלוג</a></li>
+          <li><a href="../recommendations.html">מקומות מומלצים</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main>
+    <div class="post-wrap">${heroTag}<article class="post-content"><a href="../blog.html" class="back-link">← כל הפוסטים</a>${metaTag}<h1 class="post-title">${escHtml(title)}</h1><div class="post-body">
+${bodyHtml}
+</div></article></div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-copy">© Tokyo2020explore — כל הזכויות שמורות</span>
+  </footer>
+
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  <\/script>
+</body>
+</html>`;
+}
+
+function updatePostHtml(html, title, date, imgUrl, bodyHtml) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  // Update title tag
+  const titleEl = doc.querySelector('title');
+  if (titleEl) titleEl.textContent = `${title} — Tokyo 20/20 Explore`;
+
+  // Update h1
+  const h1 = doc.querySelector('.post-title');
+  if (h1) h1.textContent = title;
+
+  // Update date
+  const dateEl = doc.querySelector('.post-meta-date');
+  if (dateEl && date) dateEl.textContent = date;
+
+  // Update hero image
+  const heroImg = doc.querySelector('.post-hero-full');
+  if (heroImg && imgUrl) heroImg.src = imgUrl;
+
+  // Update body
+  const bodyEl = doc.querySelector('.post-body');
+  if (bodyEl) bodyEl.innerHTML = '\n' + bodyHtml + '\n';
+
+  return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+}
+
+async function injectBlogCard({ title, href, img, cat, date, excerpt }) {
+  const { content, sha } = await readFile('docs/blog.html');
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, 'text/html');
+
+  const grid = doc.querySelector('.blog-grid');
+  if (!grid) throw new Error('לא נמצא blog-grid');
+
+  const newCard = doc.createElement('a');
+  newCard.className = 'blog-card';
+  newCard.href = href;
+  newCard.innerHTML = `
+          <div class="blog-card-img"><img src="${escHtml(img)}" alt="${escHtml(title)}" loading="lazy" /></div>
+          <div class="blog-card-body">
+            <span class="blog-card-cat">${escHtml(cat)}</span>
+            <h2>${escHtml(title)}</h2>
+            ${date ? `<span class="blog-date">${escHtml(date)}</span>` : ''}
+            <p>${escHtml(excerpt)}</p>
+          </div>`;
+  grid.insertBefore(newCard, grid.firstChild);
+
+  const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  await writeFile('docs/blog.html', newHtml, sha, `הוספת כרטיס לבלוג: ${title}`);
+}
+
+async function updateBlogCard({ href, title, img, cat, date, excerpt }) {
+  const { content, sha } = await readFile('docs/blog.html');
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, 'text/html');
+
+  // Update grid card
+  const card = doc.querySelector(`.blog-card[href="${href}"]`);
+  if (card) {
+    const imgEl = card.querySelector('img');
+    if (imgEl && img) imgEl.src = img;
+    const h2El = card.querySelector('h2');
+    if (h2El) h2El.textContent = title;
+    const catEl = card.querySelector('.blog-card-cat');
+    if (catEl) catEl.textContent = cat;
+    const dateEl = card.querySelector('.blog-date');
+    if (dateEl && date) dateEl.textContent = date;
+    const pEl = card.querySelector('p');
+    if (pEl) pEl.textContent = excerpt;
+  }
+
+  // Update featured if match
+  const featured = doc.querySelector('.blog-featured');
+  if (featured && featured.getAttribute('href') === href) {
+    const imgEl = featured.querySelector('img');
+    if (imgEl && img) imgEl.src = img;
+    const h2El = featured.querySelector('h2');
+    if (h2El) h2El.textContent = title;
+    const catEl = featured.querySelector('.blog-featured-cat');
+    if (catEl) catEl.textContent = cat;
+    const dateEl = featured.querySelector('.blog-featured-date');
+    if (dateEl && date) dateEl.textContent = date;
+    const pEl = featured.querySelector('p');
+    if (pEl) pEl.textContent = excerpt;
+  }
+
+  const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  await writeFile('docs/blog.html', newHtml, sha, `עדכון כרטיס בלוג: ${title}`);
+}
+
+// ─── Recommendations ──────────────────────────────────────────────────────────
+let recSha = null;
+let recCards = [];
+
+async function loadRecommendations() {
+  const el = document.getElementById('rec-content');
+  el.innerHTML = '<span class="spinner"></span>';
+  try {
+    const { content, sha } = await readFile('docs/recommendations.html');
+    recSha = sha;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+
+    recCards = [];
+    doc.querySelectorAll('.rec-card').forEach(card => {
+      recCards.push({
+        href: card.getAttribute('href') || '',
+        img: card.querySelector('img')?.src || '',
+        title: card.querySelector('.rec-card-title')?.textContent || '',
+      });
+    });
+
+    renderCardEditor(el, recCards, 'rec');
+    document.getElementById('rec-actions').style.display = '';
+  } catch (e) {
+    el.innerHTML = `<p style="color:red">שגיאה: ${e.message}</p>`;
+  }
+}
+
+async function saveRecommendations() {
+  try {
+    collectCards('rec', recCards);
+    const { content, sha } = await readFile('docs/recommendations.html');
+    const updated = updateRecGrid(content, recCards);
+    await writeFile('docs/recommendations.html', updated, sha, 'עדכון דף המלצות');
+    recSha = null;
+    toast('דף ההמלצות עודכן!');
+    loadRecommendations();
+  } catch (e) {
+    toast('שגיאה: ' + e.message, true);
+  }
+}
+
+// ─── Itineraries ──────────────────────────────────────────────────────────────
+let itinSha = null;
+let itinCards = [];
+
+async function loadItineraries() {
+  const el = document.getElementById('itin-content');
+  el.innerHTML = '<span class="spinner"></span>';
+  try {
+    const { content, sha } = await readFile('docs/projects-3.html');
+    itinSha = sha;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+
+    itinCards = [];
+    doc.querySelectorAll('.rec-card').forEach(card => {
+      itinCards.push({
+        href: card.getAttribute('href') || '',
+        img: card.querySelector('img')?.src || '',
+        title: card.querySelector('.rec-card-title')?.textContent || '',
+      });
+    });
+
+    renderCardEditor(el, itinCards, 'itin');
+    document.getElementById('itin-actions').style.display = '';
+  } catch (e) {
+    el.innerHTML = `<p style="color:red">שגיאה: ${e.message}</p>`;
+  }
+}
+
+async function saveItineraries() {
+  try {
+    collectCards('itin', itinCards);
+    const { content, sha } = await readFile('docs/projects-3.html');
+    const updated = updateRecGrid(content, itinCards);
+    await writeFile('docs/projects-3.html', updated, sha, 'עדכון דף מסלולים');
+    itinSha = null;
+    toast('דף המסלולים עודכן!');
+    loadItineraries();
+  } catch (e) {
+    toast('שגיאה: ' + e.message, true);
+  }
+}
+
+// ─── Shared card editor ───────────────────────────────────────────────────────
+function renderCardEditor(el, cards, prefix) {
+  let html = `<div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+    <button class="btn btn-primary btn-sm" onclick="addCard('${prefix}')">+ הוספת כרטיס</button>
+  </div>`;
+
+  cards.forEach((card, i) => {
+    html += `<div class="section-card" id="${prefix}-card-${i}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <span style="font-weight:600;font-size:0.9rem;">כרטיס ${i + 1}</span>
+        <div>
+          ${i > 0 ? `<button class="btn btn-secondary btn-sm" onclick="moveCard('${prefix}',${i},-1)">↑</button>` : ''}
+          ${i < cards.length - 1 ? `<button class="btn btn-secondary btn-sm" onclick="moveCard('${prefix}',${i},1)">↓</button>` : ''}
+          <button class="btn btn-danger btn-sm" onclick="removeCard('${prefix}',${i})">מחיקה</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>קישור (href)</label>
+          <input type="text" id="${prefix}-href-${i}" value="${escHtml(card.href)}" />
+        </div>
+        <div class="form-group">
+          <label>כותרת</label>
+          <input type="text" id="${prefix}-title-${i}" value="${escHtml(card.title)}" dir="rtl" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>URL של תמונה</label>
+        <input type="text" id="${prefix}-img-${i}" value="${escHtml(card.img)}" />
+      </div>
+      ${card.img ? `<img src="${escHtml(card.img)}" style="max-height:80px;border-radius:4px;margin-top:4px;" onerror="this.style.display='none'" />` : ''}
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+function collectCards(prefix, arr) {
+  arr.forEach((_, i) => {
+    arr[i] = {
+      href: document.getElementById(`${prefix}-href-${i}`)?.value || '',
+      img: document.getElementById(`${prefix}-img-${i}`)?.value || '',
+      title: document.getElementById(`${prefix}-title-${i}`)?.value || '',
+    };
+  });
+}
+
+function addCard(prefix) {
+  const arr = prefix === 'rec' ? recCards : itinCards;
+  collectCards(prefix, arr);
+  arr.push({ href: '', img: '', title: '' });
+  const el = document.getElementById(prefix + '-content');
+  renderCardEditor(el, arr, prefix);
+}
+
+function removeCard(prefix, idx) {
+  const arr = prefix === 'rec' ? recCards : itinCards;
+  collectCards(prefix, arr);
+  arr.splice(idx, 1);
+  const el = document.getElementById(prefix + '-content');
+  renderCardEditor(el, arr, prefix);
+}
+
+function moveCard(prefix, idx, dir) {
+  const arr = prefix === 'rec' ? recCards : itinCards;
+  collectCards(prefix, arr);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+  const el = document.getElementById(prefix + '-content');
+  renderCardEditor(el, arr, prefix);
+}
+
+function updateRecGrid(html, cards) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const grid = doc.querySelector('.rec-grid');
+  if (!grid) return html;
+
+  grid.innerHTML = '\n' + cards.map(card => `
+      <a class="rec-card" href="${escHtml(card.href)}">
+        <img src="${escHtml(card.img)}" alt="${escHtml(card.title)}" loading="lazy" />
+        <span class="rec-card-title">${escHtml(card.title)}</span>
+      </a>`).join('\n') + '\n    ';
+
+  return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function slugify(text) {
+  // For Hebrew titles, just use the text directly (GitHub handles unicode paths)
+  return text.trim().replace(/\s+/g, '-').replace(/[\/\\?%*:|"<>]/g, '');
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+if (isLoggedIn()) {
+  initApp();
+} else {
+  document.getElementById('panel-login').classList.add('active');
+}
+</script>
+</body>
+</html>
