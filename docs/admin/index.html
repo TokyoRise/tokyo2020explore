@@ -119,6 +119,8 @@
 
     .back-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.85rem; cursor: pointer; margin-bottom: 24px; background: none; border: none; padding: 0; }
     .back-btn:hover { color: var(--text); }
+    .shared-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; background: #d4edda; color: #155724; margin-right: 8px; }
+    .shared-badge.off { background: #f8d7da; color: #721c24; }
   </style>
 </head>
 <body>
@@ -145,7 +147,19 @@
 <!-- Main -->
 <main id="main">
 
-  <!-- Login panel -->
+  <!-- Login panel — simple mode (shared password) -->
+  <div id="panel-login-simple" class="panel" style="max-width:400px;padding:80px 40px;display:none;">
+    <div class="panel-title" style="font-size:1.4rem;margin-bottom:8px;">Tokyo 20/20</div>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:28px;">ניהול תוכן</p>
+    <div class="login-field">
+      <label>סיסמה</label>
+      <input type="password" id="shared-password-input" placeholder="הזינו סיסמה" autocomplete="off"
+        onkeydown="if(event.key==='Enter')doSharedLogin()" />
+    </div>
+    <button class="btn btn-primary" onclick="doSharedLogin()">כניסה</button>
+  </div>
+
+  <!-- Login panel — full GitHub mode -->
   <div id="panel-login" class="panel active">
     <div class="panel-title">ברוכים הבאים</div>
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:28px;">התחברו עם GitHub Personal Access Token כדי להתחיל לערוך תוכן.</p>
@@ -167,7 +181,8 @@
 
   <!-- Settings panel -->
   <div id="panel-settings" class="panel">
-    <div class="panel-title">חשבון GitHub</div>
+    <div class="panel-title">הגדרות</div>
+
     <div class="section-card">
       <h3>חיבור לריפו</h3>
       <div class="form-group">
@@ -184,6 +199,22 @@
       </div>
       <button class="btn btn-primary" onclick="saveSettings()">שמירה</button>
       <button class="btn btn-secondary" onclick="doLogout()">התנתקות</button>
+    </div>
+
+    <div class="section-card">
+      <h3>גישה משותפת <span id="shared-status-badge" class="shared-badge off">כבוי</span></h3>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:20px;">
+        הפעלת גישה משותפת מאפשרת למשתמשים אחרים להיכנס לCMS עם סיסמה פשוטה, בלי צורך ב-GitHub Token.
+        האישורים יישמרו בקובץ ה-HTML של האדמין (מוצפנים בסיסית).
+      </p>
+      <div class="form-group">
+        <label>סיסמה משותפת</label>
+        <input type="text" id="shared-pw" placeholder="לדוגמה: tokyo2020" autocomplete="off" />
+        <div class="form-hint">כל מי שיקבל סיסמה זו יוכל לערוך תוכן באתר</div>
+      </div>
+      <button class="btn btn-primary" onclick="activateSharedMode()">הפעלה ושמירה</button>
+      <button class="btn btn-secondary" onclick="deactivateSharedMode()" id="btn-deactivate" style="display:none;">ביטול גישה משותפת</button>
+      <span id="shared-save-status" style="margin-right:12px;font-size:0.85rem;color:var(--muted);"></span>
     </div>
   </div>
 
@@ -278,6 +309,11 @@
 <div id="toast"></div>
 
 <script>
+// ─── Shared credentials (set by activateSharedMode, do not edit manually) ────
+// SHARED_CREDS_START
+const SHARED_CREDS = null;
+// SHARED_CREDS_END
+
 // ─── Config ───────────────────────────────────────────────────────────────────
 const REPO_BRANCH = 'main';
 const DOCS_PREFIX = 'docs/';
@@ -351,6 +387,25 @@ function doLogin() {
   initApp();
 }
 
+function doSharedLogin() {
+  if (!SHARED_CREDS) return;
+  const entered = document.getElementById('shared-password-input').value;
+  try {
+    const decoded = JSON.parse(atob(SHARED_CREDS));
+    if (entered !== decoded.password) {
+      toast('סיסמה שגויה', true);
+      document.getElementById('shared-password-input').value = '';
+      return;
+    }
+    localStorage.setItem('gh_user', decoded.user);
+    localStorage.setItem('gh_repo', decoded.repo);
+    localStorage.setItem('gh_token', decoded.token);
+    initApp();
+  } catch (e) {
+    toast('שגיאה בפענוח אישורים', true);
+  }
+}
+
 function doLogout() {
   localStorage.removeItem('gh_token');
   location.reload();
@@ -361,6 +416,63 @@ function saveSettings() {
   localStorage.setItem('gh_repo', document.getElementById('s-repo').value.trim());
   localStorage.setItem('gh_token', document.getElementById('s-token').value.trim());
   toast('הגדרות נשמרו');
+}
+
+async function activateSharedMode() {
+  const password = document.getElementById('shared-pw').value.trim();
+  if (!password) { toast('נא להזין סיסמה', true); return; }
+  const c = cfg();
+  if (!c.token) { toast('נא להתחבר תחילה עם GitHub Token', true); return; }
+
+  const statusEl = document.getElementById('shared-save-status');
+  statusEl.innerHTML = '<span class="spinner"></span> שומר...';
+
+  try {
+    const encoded = btoa(JSON.stringify({ user: c.user, repo: c.repo, token: c.token, password }));
+    const { content: fileContent, sha } = await readFile('docs/admin/index.html');
+
+    // Replace the SHARED_CREDS block
+    const updated = fileContent.replace(
+      /\/\/ SHARED_CREDS_START\nconst SHARED_CREDS = .*?;\n\/\/ SHARED_CREDS_END/s,
+      `// SHARED_CREDS_START\nconst SHARED_CREDS = '${encoded}';\n// SHARED_CREDS_END`
+    );
+
+    await writeFile('docs/admin/index.html', updated, sha, 'הפעלת גישה משותפת ל-CMS');
+    statusEl.innerHTML = '';
+    toast('גישה משותפת הופעלה! רענן את הדף לאחר כמה שניות.');
+    updateSharedBadge(true);
+    document.getElementById('btn-deactivate').style.display = '';
+  } catch (e) {
+    statusEl.innerHTML = '';
+    toast('שגיאה: ' + e.message, true);
+  }
+}
+
+async function deactivateSharedMode() {
+  const statusEl = document.getElementById('shared-save-status');
+  statusEl.innerHTML = '<span class="spinner"></span> שומר...';
+  try {
+    const { content: fileContent, sha } = await readFile('docs/admin/index.html');
+    const updated = fileContent.replace(
+      /\/\/ SHARED_CREDS_START\nconst SHARED_CREDS = .*?;\n\/\/ SHARED_CREDS_END/s,
+      `// SHARED_CREDS_START\nconst SHARED_CREDS = null;\n// SHARED_CREDS_END`
+    );
+    await writeFile('docs/admin/index.html', updated, sha, 'ביטול גישה משותפת ל-CMS');
+    statusEl.innerHTML = '';
+    toast('גישה משותפת בוטלה.');
+    updateSharedBadge(false);
+    document.getElementById('btn-deactivate').style.display = 'none';
+  } catch (e) {
+    statusEl.innerHTML = '';
+    toast('שגיאה: ' + e.message, true);
+  }
+}
+
+function updateSharedBadge(active) {
+  const badge = document.getElementById('shared-status-badge');
+  if (!badge) return;
+  badge.textContent = active ? 'פעיל' : 'כבוי';
+  badge.className = 'shared-badge' + (active ? '' : ' off');
 }
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
@@ -389,11 +501,22 @@ function fillSettings() {
   document.getElementById('s-user').value = c.user;
   document.getElementById('s-repo').value = c.repo;
   document.getElementById('s-token').value = c.token;
+  // Show shared mode status
+  const isShared = !!SHARED_CREDS;
+  updateSharedBadge(isShared);
+  if (isShared) {
+    document.getElementById('btn-deactivate').style.display = '';
+    try {
+      const decoded = JSON.parse(atob(SHARED_CREDS));
+      document.getElementById('shared-pw').value = decoded.password || '';
+    } catch (_) {}
+  }
 }
 
 function initApp() {
   if (!isLoggedIn()) return;
   document.getElementById('panel-login').classList.remove('active');
+  document.getElementById('panel-login-simple').style.display = 'none';
   document.getElementById('logged-in-as').textContent = cfg().user + '/' + cfg().repo;
   showPanel('blog');
 }
@@ -929,6 +1052,11 @@ function slugify(text) {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 if (isLoggedIn()) {
   initApp();
+} else if (SHARED_CREDS) {
+  // Show simple password login
+  document.getElementById('panel-login').classList.remove('active');
+  document.getElementById('panel-login-simple').style.display = 'block';
+  document.getElementById('panel-login-simple').classList.add('active');
 } else {
   document.getElementById('panel-login').classList.add('active');
 }
