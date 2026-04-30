@@ -370,6 +370,10 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   overflow: hidden;
   margin-top: var(--nav-height);
 }
+.rec-hero--tall {
+  height: 520px;
+}
+
 .rec-hero img {
   width: 100%;
   height: 100%;
