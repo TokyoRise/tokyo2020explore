@@ -7,7 +7,7 @@
   --color-muted: #555555;
   --color-border: #e0e0e0;
   --color-accent: #1a1a1a;
-  --nav-height: 60px;
+  --nav-height: 72px;
   --font: 'Heebo', 'Arial', sans-serif;
 }
 
@@ -60,7 +60,7 @@ img { display: block; max-width: 100%; height: auto; }
   flex-shrink: 0;
 }
 .nav-logo-img img {
-  height: 32px;
+  height: 48px;
   width: auto;
   display: block;
   opacity: 0.9;
@@ -117,7 +117,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 .hero-logo {
   position: relative;
   z-index: 1;
-  max-width: min(500px, 80vw);
+  max-width: min(700px, 88vw);
   height: auto;
 }
 
