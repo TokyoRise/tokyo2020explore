@@ -223,10 +223,35 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 .home-blog .blog-grid {
   margin-top: 0;
 }
+.home-blog .blog-card {
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.home-blog .blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+}
+.home-blog .blog-card > img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.home-blog .blog-card:hover > img {
+  transform: scale(1.05);
+}
+.home-blog .blog-card-body {
+  background: #fff;
+  padding: 14px 12px 16px;
+}
 .home-blog .blog-card-body h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.4;
+  text-align: center;
 }
 .btn-more {
   display: inline-block;
