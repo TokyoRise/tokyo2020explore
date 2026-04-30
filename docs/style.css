@@ -127,7 +127,8 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0;
+  gap: 12px;
+  padding: 32px 24px 0;
 }
 .feature-card {
   position: relative;
