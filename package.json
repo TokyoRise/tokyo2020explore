@@ -1,3 +1,4 @@
+cd /tmp/tokyo2020explore && git push origin main
 {
   "name": "tokyo2020explore-website",
   "version": "1.0.0",
