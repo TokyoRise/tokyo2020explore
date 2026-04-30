@@ -959,16 +959,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 }
 
 /* Drop cap on first paragraph (Hebrew RTL — floats right) */
-.post-body > p:first-child::first-letter {
-  font-size: 3.4em;
-  font-weight: 800;
-  float: right;
-  line-height: 0.85;
-  margin-left: 10px;
-  margin-top: 6px;
-  color: #111;
-}
-/* No drop cap for LTR opening paragraphs (e.g. English quotes) */
+/* No drop caps */
 .post-body > p.post-opening-quote::first-letter {
   all: unset;
 }
@@ -1259,7 +1250,6 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .blog-featured-img { height: 220px; }
   .blog-featured-body { padding: 24px 20px; }
   .page-content, .post-content, .shop-section { padding: 40px 20px 60px; }
-  .post-body > p:first-child::first-letter { font-size: 2.8em; }
   /* Feature grid: stack all cards 1 per row on mobile */
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card,
