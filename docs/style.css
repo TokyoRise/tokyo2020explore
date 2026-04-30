@@ -536,8 +536,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 
 .page-hero-img img {
   width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
+  height: auto;
   border-radius: 4px;
 }
 
