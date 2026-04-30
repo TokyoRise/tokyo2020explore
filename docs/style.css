@@ -128,13 +128,13 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 12px;
-  padding: 32px 24px 0;
+  padding: 48px 48px 0;
 }
 .feature-card {
   position: relative;
   display: block;
   grid-column: span 2;
-  aspect-ratio: 16/9;
+  aspect-ratio: 5/4;
   background-size: cover;
   background-position: center;
   overflow: hidden;
