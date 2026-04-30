@@ -176,6 +176,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   max-width: 680px;
   margin: 0 auto;
   position: relative;
+  direction: ltr;
 }
 .site-quote::before {
   content: '\201C';
