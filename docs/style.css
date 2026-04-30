@@ -117,7 +117,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 .hero-logo {
   position: relative;
   z-index: 1;
-  max-width: min(700px, 88vw);
+  max-width: min(1400px, 88vw);
   height: auto;
 }
 
