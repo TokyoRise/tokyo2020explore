@@ -7,7 +7,7 @@
   --color-muted: #555555;
   --color-border: #e0e0e0;
   --color-accent: #1a1a1a;
-  --nav-height: 140px;
+  --nav-height: 90px;
   --font: 'Heebo', 'Arial', sans-serif;
 }
 
@@ -60,7 +60,7 @@ img { display: block; max-width: 100%; height: auto; }
   flex-shrink: 0;
 }
 .nav-logo-img img {
-  height: 120px;
+  height: 72px;
   width: auto;
   display: block;
   opacity: 0.9;
