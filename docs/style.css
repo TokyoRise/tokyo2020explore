@@ -877,9 +877,11 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 
 /* Full-bleed hero */
 .post-hero-full {
-  width: 100%;
-  height: auto;
   display: block;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto 32px;
+  border-radius: 4px;
 }
 
 .post-content {
