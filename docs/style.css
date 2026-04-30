@@ -122,20 +122,24 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 }
 
 /* ===== FEATURE GRID (homepage) ===== */
+/* 6-column grid: first 3 cards span 2 cols each (full row),
+   last 2 cards span 2 cols each centered */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0;
 }
 .feature-card {
   position: relative;
   display: block;
-  grid-column: span 1;
+  grid-column: span 2;
   aspect-ratio: 5/4;
   background-size: cover;
   background-position: center;
   overflow: hidden;
 }
+.feature-card:nth-child(4) { grid-column: 2 / span 2; }
+.feature-card:nth-child(5) { grid-column: 4 / span 2; }
 .feature-card::after {
   content: '';
   position: absolute;
@@ -159,10 +163,6 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   letter-spacing: 0.08em;
   text-align: center;
   padding: 16px;
-}
-@media (max-width: 600px) {
-  .feature-grid { grid-template-columns: repeat(2, 1fr); }
-  .feature-card:last-child { grid-column: 1 / -1; }
 }
 
 /* ===== QUOTE SECTION ===== */
