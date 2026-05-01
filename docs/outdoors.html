@@ -47,17 +47,24 @@
       padding: 0 20px 48px;
     }
     .outdoors-gallery-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
+      display: grid;
+      gap: 4px;
+      margin-bottom: 4px;
     }
     .outdoors-gallery-row img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
-      min-width: 0;
     }
-    .outdoors-gallery-row.row1 img { height: 315px; }
-    .outdoors-gallery-row.row2 img { height: 389px; }
+    .outdoors-gallery-row.row1 {
+      grid-template-columns: 429fr 236fr 234fr 237fr 426fr 234fr;
+      height: 315px;
+    }
+    .outdoors-gallery-row.row2 {
+      grid-template-columns: 297fr 297fr 299fr;
+      height: 389px;
+    }
     .outdoors-contact {
       max-width: 860px;
       margin: 0 auto;
@@ -74,8 +81,8 @@
     .outdoors-contact .closing { margin-top: 24px; }
     .outdoors-contact .author { font-weight: 600; }
     @media (max-width: 700px) {
-      .outdoors-gallery-row { flex-wrap: wrap; }
-      .outdoors-gallery-row img { height: 200px; flex: 1 1 45%; }
+      .outdoors-gallery-row.row1 { grid-template-columns: 1fr 1fr 1fr; height: 180px; }
+      .outdoors-gallery-row.row2 { grid-template-columns: 1fr 1fr 1fr; height: 220px; }
     }
   </style>
 </head>
@@ -127,17 +134,17 @@
 
     <section class="outdoors-gallery">
       <div class="outdoors-gallery-row row1">
-        <img style="flex:429" src="https://static.wixstatic.com/media/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_429,h_315,al_c,q_85/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:236" src="https://static.wixstatic.com/media/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_236,h_315,al_c,q_85/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:234" src="https://static.wixstatic.com/media/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_234,h_315,al_c,q_85/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:237" src="https://static.wixstatic.com/media/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_237,h_315,al_c,q_85/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:426" src="https://static.wixstatic.com/media/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_426,h_315,al_c,q_85/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:234" src="https://static.wixstatic.com/media/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_234,h_315,al_c,q_85/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_429,h_315,al_c,q_85/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_236,h_315,al_c,q_85/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_234,h_315,al_c,q_85/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_237,h_315,al_c,q_85/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_426,h_315,al_c,q_85/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_234,h_315,al_c,q_85/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
       </div>
       <div class="outdoors-gallery-row row2">
-        <img style="flex:297" src="https://static.wixstatic.com/media/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_297,h_389,al_c,q_85/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:297" src="https://static.wixstatic.com/media/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_297,h_389,al_c,q_85/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
-        <img style="flex:299" src="https://static.wixstatic.com/media/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_299,h_389,al_c,q_85/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_297,h_389,al_c,q_85/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_297,h_389,al_c,q_85/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_299,h_389,al_c,q_85/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
       </div>
     </section>
 
