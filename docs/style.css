@@ -937,6 +937,9 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   direction: rtl;
 }
 .back-link:hover { color: var(--color-text); }
+.back-link-bottom { margin-top: 32px; direction: ltr; }
+.back-link-bottom a { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); transition: color 0.2s; }
+.back-link-bottom a:hover { color: var(--color-text); }
 
 .post-meta {
   display: flex;
