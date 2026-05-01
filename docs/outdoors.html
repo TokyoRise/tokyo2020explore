@@ -3,16 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מחוץ לטוקיו — Tokyo 20/20 Explore</title>
-  
+  <title>סיורים מחוץ לטוקיו — Tokyo 20/20 Explore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .outdoors-hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px 48px;
+      text-align: right;
+    }
+    .outdoors-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .outdoors-hero .subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400;
+      color: var(--color-muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .outdoors-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px 48px;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--color-text);
+    }
+    .outdoors-body p { margin-bottom: 18px; }
+    .outdoors-body .itinerary { margin: 24px 0; padding-right: 0; list-style: none; }
+    .outdoors-body .itinerary li { margin-bottom: 8px; }
+    .outdoors-body .divider { color: var(--color-muted); letter-spacing: 4px; margin: 8px 0; }
+    .outdoors-body .note { font-weight: 700; }
+    .outdoors-gallery {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+    .outdoors-gallery-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .outdoors-gallery-row img {
+      flex: 1;
+      object-fit: cover;
+      display: block;
+      min-width: 0;
+    }
+    .outdoors-gallery-row.row1 img { height: 315px; }
+    .outdoors-gallery-row.row2 img { height: 389px; }
+    .outdoors-contact {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+      text-align: right;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+    .outdoors-contact a {
+      color: var(--color-text);
+      text-decoration: underline;
+    }
+    .outdoors-contact a:hover { color: var(--color-muted); }
+    .outdoors-contact .closing { margin-top: 24px; }
+    .outdoors-contact .author { font-weight: 600; }
+    @media (max-width: 700px) {
+      .outdoors-gallery-row { flex-wrap: wrap; }
+      .outdoors-gallery-row img { height: 200px; flex: 1 1 45%; }
+    }
+  </style>
 </head>
 <body>
-  
-    <header class="site-header">
+
+  <header class="site-header">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo-img">
         <img src="https://i.imgur.com/AMyqg4U.png" alt="Tokyo Is Yours" />
@@ -21,6 +91,7 @@
         <ul class="nav-links" id="nav-links">
           <li><a href="index.html">עמוד הבית</a></li>
           <li><a href="about.html">אודות</a></li>
+          <li><a href="outdoors.html" class="active">סיורים מחוץ לעיר</a></li>
           <li><a href="shop.html">לרכישת הספר</a></li>
           <li><a href="projects-3.html">מסלולים</a></li>
           <li><a href="blog.html">בלוג</a></li>
@@ -30,25 +101,61 @@
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </header>
+
   <main>
-    <div class="page-content"><div class="page-header"><h1>מחוץ לטוקיו</h1><p class="page-desc">טיול מחוץ לטוקיו כולל לינה בריוקן</p></div><div class="page-hero-img"><img src="https://static.wixstatic.com/media/90c0c4_8eb66fa0858445c581c52cba34494e43%7Emv2.png/v1/fit/w_2500,h_1330,al_c/90c0c4_8eb66fa0858445c581c52cba34494e43%7Emv2.png" alt="מחוץ לטוקיו" /></div><div class="page-text"><p>טיול של יומיים להר מיטאקה הכולל לינה בריוקן (בית הארחה מסורתי) ומסלולי סיור בטבע בין הרים, נהרות, מפלים ומקדשים</p>
-<p>הר מיטאקה (御岳山 Mitake-san) שגובהו כ-900 מטר שוכן בפארק הלאומי Chichibu Tama, במרחק של כשעתיים נסיעה מהעיר, בפרבריה המערביים של טוקיו במחוז Okutama. ההר הינו מקום עלייה לרגל מזה 2000 שנה, למעשה מאז שהוקם בראש ההר מקדש מיטאקה בשנת 736. במפל של השמורה נהוג לקיים טקס זן מסורתי שבמהלכו מבצעים הנזירים מדיטציה מתחת למי-המפל הצוננים.</p>
-<p>מלבד העלייה לרגל אל המקדש שבראש ההר מציע האזור מסלולי הליכה וטיול נוחים. לאחר הטיול בטבע במהלך היום, תוכלו להינות מלינה בריוקן ומאירוח יפני מסורתי בעיירה הקטנה, ולהתעורר בבוקר לאוויר הרים צלול ולנוף עוצר נשימה.</p>
-<p>טיול של יומיים להר מיטאקה כולל:</p>
-<p>- נסיעה ברכבת ועלייה ברכבל לראש ההר</p>
-<p>- לינה בריוקן (בית הארחה יפני מסורתי)</p>
-<p>- שתי ארוחות: ארוחת ערב יפנית מסורתית, וארוחת בוקר מערבית/ יפנית (לבחירתכם).</p>
-<p>- מסלול הליכה של כשלוש-ארבע שעות.</p>
-<p>הטיול דורש תיאום מראש והעלות הסופית תלויה במספר האנשים בקבוצה.</p>
-<p>לתיאום סיור מחוץ לטוקיו אתם מוזמנים לפנות אליי באמצעות המייל:</p>
-</div><div class="page-gallery"><img src="https://static.wixstatic.com/media/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4719_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4875_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4712_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4747_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4744_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4736_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4901_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,q_85/IMG_4897_JPG.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_900,q_85/IMG_7044.jpg" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/23fd2a2be53141ed810f4d3dcdcd01fa.png/v1/fill/w_900,q_85/23fd2a2be53141ed810f4d3dcdcd01fa.png" alt="" loading="lazy" /><img src="https://static.wixstatic.com/media/81af6121f84c41a5b4391d7d37fce12a.png/v1/fill/w_900,q_85/81af6121f84c41a5b4391d7d37fce12a.png" alt="" loading="lazy" /></div></div>
+
+    <section class="outdoors-hero">
+      <h1>סיורים מחוץ לטוקיו</h1>
+      <p class="subtitle">טיול של יומיים להר מיטאקה הכולל לינה בריוקן (בית הארחה מסורתי) ומסלולי סיור בטבע בין הרים, נהרות, מפלים ומקדשים</p>
+    </section>
+
+    <section class="outdoors-body">
+      <p>הר מיטאקה (御岳山 Mitake-san) שגובהו כ-900 מטר שוכן בפארק הלאומי Chichibu Tama, במרחק של כשעתיים נסיעה מהעיר, בפרבריה המערביים של טוקיו במחוז Okutama. ההר הינו מקום עלייה לרגל מזה 2000 שנה, למעשה מאז שהוקם בראש ההר מקדש מיטאקה בשנת 736. במפל של השמורה נהוג לקיים טקס זן מסורתי שבמהלכו מבצעים הנזירים מדיטציה מתחת למי-המפל הצוננים.</p>
+      <p>מלבד העלייה לרגל אל המקדש שבראש ההר מציע האזור מסלולי הליכה וטיול נוחים. לאחר הטיול בטבע במהלך היום, תוכלו להינות מלינה בריוקן ומאירוח יפני מסורתי בעיירה הקטנה, ולהתעורר בבוקר לאוויר הרים צלול ולנוף עוצר נשימה.</p>
+      <p>טיול של יומיים להר מיטאקה כולל:</p>
+      <p class="divider">—————————————</p>
+      <ul class="itinerary">
+        <li>- נסיעה ברכבת ועלייה ברכבל לראש ההר</li>
+        <li>- סיור למקדש + מסלול טיול קצר</li>
+        <li>- לינה בריוקן (בית הארחה יפני מסורתי)</li>
+        <li>- רחצה באונסן (בית מרחץ)</li>
+        <li>- שתי ארוחות: ארוחת ערב יפנית מסורתית, וארוחת בוקר מערבית / יפנית (לבחירתכם).</li>
+        <li>- מסלול הליכה של כשלוש-ארבע שעות.</li>
+        <li>- חזרה לטוקיו.</li>
+      </ul>
+      <p class="note">הטיול דורש תיאום מראש והעלות הסופית תלויה במספר האנשים בקבוצה.</p>
+    </section>
+
+    <section class="outdoors-gallery">
+      <div class="outdoors-gallery-row row1">
+        <img src="https://static.wixstatic.com/media/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_81884051b90e49ab98202e55af5b569f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_b29afb1e6a0b4368a81e36c7c7c39e15~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_9ada84525a6d4f938c10bc26ee7d31d2~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_d9ed0b5f0bc94df3a67d56c5d538e89e~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_36e9acd6cc03447baed1b97d23b39b7f~mv2_d_3264_2448_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_315,al_c,q_85/90c0c4_ef9eb675d6314cd795c3607d424d862a~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+      </div>
+      <div class="outdoors-gallery-row row2">
+        <img src="https://static.wixstatic.com/media/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_389,al_c,q_85/90c0c4_416151acba404632ab899ffbc121cdfb~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg/v1/fill/w_900,h_389,al_c,q_85/90c0c4_a7ecd7622a8a46de80cf604f0c20db48~mv2_d_2448_3264_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg/v1/fill/w_900,h_389,al_c,q_85/90c0c4_c2707d48c8594fea9ff8520c0e6edc20~mv2_d_3024_4032_s_4_2.jpg" alt="מיטאקה" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="outdoors-contact">
+      <p>לתיאום סיור מחוץ לטוקיו אתם מוזמנים לפנות אליי באמצעות המייל:<br />
+      <a href="mailto:tokyo2020explore@gmail.com">tokyo2020explore@gmail.com</a></p>
+      <p class="closing">שיהיה טיול מהנה!</p>
+      <p class="author">ליאת ענבר רייס</p>
+    </section>
+
   </main>
-  
+
   <footer class="site-footer">
     <span class="footer-copy">© Tokyo2020explore — כל הזכויות שמורות</span>
   </footer>
-  
-    <script>
+
+  <script>
     document.getElementById('nav-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('open');
     });
