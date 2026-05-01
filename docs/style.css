@@ -1100,6 +1100,10 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   transform-origin: center center;
   display: block;
 }
+.story-img img {
+  transform: scale(0.7);
+  transform-origin: center center;
+}
 
 .shop-section {
   max-width: 1040px;
