@@ -1,6 +1,6 @@
 (function () {
   var targets = document.querySelectorAll(
-    '.page-header, .page-hero-img, .page-text p, .page-gallery img'
+    '.page-header, .page-hero-img, .page-text p, .page-text .page-inline-img, .page-text .page-inline-imgs, .page-gallery img'
   );
 
   targets.forEach(function (el) {

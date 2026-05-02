@@ -561,6 +561,29 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   margin-bottom: 24px;
 }
 
+.page-inline-img {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  margin: 28px 0;
+}
+
+.page-inline-imgs {
+  display: flex;
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.page-inline-imgs img {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  object-fit: cover;
+}
+
 .page-gallery {
   columns: 3 200px;
   column-gap: 14px;
