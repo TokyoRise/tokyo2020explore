@@ -746,7 +746,7 @@ function buildPostHtml(title, date, imgUrl, bodyHtml) {
           <li><a href="../index.html">עמוד הבית</a></li>
           <li><a href="../about.html">אודות</a></li>
           <li><a href="../shop.html">לרכישת הספר</a></li>
-          <li><a href="../projects-3.html">מסלולים</a></li>
+          <li><a href="../tours.html">מסלולים</a></li>
           <li><a href="../blog.html">בלוג</a></li>
           <li><a href="../recommendations.html">מקומות מומלצים</a></li>
         </ul>
@@ -915,7 +915,7 @@ async function loadItineraries() {
   const el = document.getElementById('itin-content');
   el.innerHTML = '<span class="spinner"></span>';
   try {
-    const { content, sha } = await readFile('docs/projects-3.html');
+    const { content, sha } = await readFile('docs/tours.html');
     itinSha = sha;
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
@@ -939,9 +939,9 @@ async function loadItineraries() {
 async function saveItineraries() {
   try {
     collectCards('itin', itinCards);
-    const { content, sha } = await readFile('docs/projects-3.html');
+    const { content, sha } = await readFile('docs/tours.html');
     const updated = updateRecGrid(content, itinCards);
-    await writeFile('docs/projects-3.html', updated, sha, 'עדכון דף מסלולים');
+    await writeFile('docs/tours.html', updated, sha, 'עדכון דף מסלולים');
     itinSha = null;
     toast('דף המסלולים עודכן!');
     loadItineraries();
