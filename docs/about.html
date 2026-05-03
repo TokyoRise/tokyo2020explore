@@ -244,9 +244,36 @@
       .story-block, .story-block.reverse { grid-template-columns: 1fr; direction: rtl; }
     }
     @media (max-width: 600px) {
+      /* 1. Liat portrait: 15% smaller (235 * 0.85 ≈ 200px) */
+      .about-intro-photo img { width: 200px !important; margin: 0 auto; }
+
+      /* 2 & 3. Story images 1 & 2: 30% bigger — extend to full viewport width */
+      .story-inner > .story-block:nth-child(1) .story-img,
+      .story-inner > .story-block:nth-child(2) .story-img {
+        margin-left: -40px;
+        margin-right: -40px;
+      }
+      .story-inner > .story-block:nth-child(1) .story-img img,
+      .story-inner > .story-block:nth-child(2) .story-img img {
+        width: calc(100% + 80px);
+      }
+
+      /* 4. Story image 3 (שימוקיטאזווה): 40% bigger — full width + taller */
+      .story-inner > .story-block:nth-child(3) .story-img {
+        margin-left: -40px;
+        margin-right: -40px;
+      }
+      .story-inner > .story-block:nth-child(3) .story-img img {
+        width: calc(100% + 80px);
+        min-height: 300px;
+        object-fit: cover;
+      }
+
+      /* 5. Mosaic: balanced 2×4 grid, hide 9th item */
       .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
       .mosaic-item:nth-child(1), .mosaic-item:nth-child(5) { grid-row: span 1; }
       .mosaic-item:nth-child(8) { grid-column: span 1; }
+      .mosaic-item:nth-child(9) { display: none; }
     }
   </style>
 </head>
