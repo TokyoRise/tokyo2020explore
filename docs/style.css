@@ -562,9 +562,20 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 
 .page-inline-img {
   display: block;
-  width: 100%;
+  width: 60%;
+  height: auto;
   border-radius: 4px;
   margin: 28px 0;
+}
+
+.page-content img {
+  max-width: 60%;
+  height: auto;
+}
+
+.page-inline-imgs img {
+  max-width: 100%;
+  width: 100%;
 }
 
 .page-inline-imgs {
