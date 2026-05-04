@@ -602,7 +602,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 
 .page-inline-imgs {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin: 28px 0;
 }
@@ -1347,6 +1347,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .blog-featured-body { padding: 24px 20px; }
   .page-content, .post-content, .shop-section { padding: 40px 20px 60px; }
   .page-hero-img img { width: 100%; }
+
   /* Feature grid: stack all cards 1 per row on mobile */
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card,
