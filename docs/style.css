@@ -1346,6 +1346,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .blog-featured-img { height: 220px; }
   .blog-featured-body { padding: 24px 20px; }
   .page-content, .post-content, .shop-section { padding: 40px 20px 60px; }
+  .page-hero-img img { width: 100%; }
   /* Feature grid: stack all cards 1 per row on mobile */
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card,
