@@ -528,7 +528,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   line-height: 1.4;
   background: #fff;
 }
-.rec-card--soon { opacity: 0.4; cursor: default; }
+.rec-card--soon { opacity: 0.6; cursor: default; }
 .rec-card--soon:hover { transform: none; }
 
 /* ===== PAGE CONTENT ===== */
