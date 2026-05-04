@@ -1325,6 +1325,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
 }
 
 @media (max-width: 600px) {
+  :root { --nav-height: 64px; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex;
