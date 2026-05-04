@@ -1354,9 +1354,10 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .home-blog { padding: 40px 20px; }
   .quote-section { padding: 48px 24px; }
   .rec-grid { grid-template-columns: repeat(2, 1fr); padding: 24px 16px 48px; gap: 16px; }
-  .rec-hero { height: 192px; }
-  .rec-hero--overlay { align-items: flex-end; }
-  .rec-hero-text { padding: 0 20px 16px; }
+  .rec-hero,
+  .rec-hero--tall { height: 192px !important; }
+  .rec-hero--overlay { align-items: flex-end !important; }
+  .rec-hero-text { padding: 0 20px 16px !important; }
   .nav-logo-img img { height: 44px; }
   .site-header { --nav-height: 64px; height: 64px; }
 }
