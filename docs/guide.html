@@ -49,7 +49,38 @@
 <p>יסייע לכם לדמיין את הסיור המשותף שלנו.</p>
 <p>אתם מוזמנים לפנות אליי באמצעות המייל: <a href="mailto:Tokyo2020explore@gmail.com" style="color:orange;">Tokyo2020explore@gmail.com</a></p>
 <p dir="ltr">"One's destination is never a place,  but a new way of seeing things"</p>
-</div><div class="page-gallery"><img src="https://static.wixstatic.com/media/90c0c4_6c1b9ef37a4c42ac9f5d6d6a3f84659c~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85/90c0c4_6c1b9ef37a4c42ac9f5d6d6a3f84659c~mv2.jpg" alt="" loading="lazy" /></div></div>
+</div></div>
+    <section class="testimonials-section">
+      <div class="testimonials-carousel" id="testimonials">
+        <div class="testimonial-slide active">
+          <blockquote class="testimonial-quote">
+            <p>״תודה לך ליאת על יומיים קסומים בטוקיו ׳שלך׳. בהדרכתך גילינו בעיר צדדים, פינות ומקומות מיוחדים שלא מופיעים בספרי התיירות. האדריכלות, קצת היסטוריה והרבה פיקנטריה של תרבות המקום, הטעמים, האנשים וחיי הלילה. נראה כי הצלחנו לדחוס ליומיים האלה שבוע שלם. תודה גם על כל הטיפים ובהצלחה עם הספר החדש ואתר ההמלצות על השכונות המיוחדות בטוקיו. אין ספק שנתת לביקור שלנו ערך מוסף וטעם של עוד.״</p>
+            <cite>— חני, תל אביב</cite>
+          </blockquote>
+        </div>
+        <div class="testimonial-slide">
+          <blockquote class="testimonial-quote">
+            <p>״תודה רבה על יום אחרון מעניין ומרתק בטוקיו. תודה שהתאמת את הסיור באופן אישי לתחומי העניין שלי - עיצוב, אופנה, אומנות וארכיטקטורה ותודה שפתחת לי צוהר לאזורים ולאתרים הפחות מתוירים בטוקיו. הידע שלך לגבי התרבות היפנית, אורחות החיים והאתרים בהם ביקרנו מרשים ויוצא דופן. את מקסימה, אינטליגנטית ואשת שיחה. גרמת לי להתאהב בטוקיו עוד יותר ובהחלט נפגש בחופשה הבאה. תודה ליאת, על יום נפלא!״</p>
+            <cite>— מיטל, תל-אביב</cite>
+          </blockquote>
+        </div>
+        <div class="testimonial-slide">
+          <blockquote class="testimonial-quote">
+            <p>״ליאת, אלף תודות לך. עד שנפגשנו איתך ריחפנו מעל יפן בגובה רב. את קירבת את המבט שלנו באופן מובנה ומיוחד. האהבה שלך ליפן והתשוקה שלך לחלוק את האהבה הזאת, עם כישרון ביטוי ודיוק, הפכה את ההדרכה שלך לחוויה שתישאר איתנו. זה היה למעשה סמינר מהלך (עד שהרגלים כאבו.. אבל האזנים רצו לשמוע עוד ועוד)....״</p>
+            <cite>— שולי, ירושלים</cite>
+          </blockquote>
+        </div>
+        <div class="testimonial-nav">
+          <button class="t-prev" aria-label="Previous">&#8249;</button>
+          <div class="t-dots">
+            <span class="t-dot active"></span>
+            <span class="t-dot"></span>
+            <span class="t-dot"></span>
+          </div>
+          <button class="t-next" aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </section>
   </main>
   
   <footer class="site-footer">
@@ -60,6 +91,21 @@
     document.getElementById('nav-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('open');
     });
+    (function() {
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const dots = document.querySelectorAll('.t-dot');
+      let current = 0;
+      function show(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+      document.querySelector('.t-next').addEventListener('click', () => show(current + 1));
+      document.querySelector('.t-prev').addEventListener('click', () => show(current - 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
+    })();
   </script>
 </body>
 </html>
