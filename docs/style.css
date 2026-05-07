@@ -757,6 +757,9 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   }
   .list-page { padding: 40px 20px 60px; }
   .list-page-header { padding: 28px 24px; }
+  .page-inline-imgs--last-pair {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ===== BLOG INDEX ===== */
