@@ -760,7 +760,7 @@ main:not(:has(.hero)) { padding-top: var(--nav-height); }
   .page-inline-imgs--last-pair {
     grid-template-columns: 1fr;
   }
-  .page-inline-img {
+  .page-content .page-inline-img {
     width: 100%;
     max-width: 100%;
   }
