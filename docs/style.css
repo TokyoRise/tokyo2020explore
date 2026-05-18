@@ -104,6 +104,11 @@ img { display: block; max-width: 100%; height: auto; }
   list-style: none;
   direction: rtl;
 }
+
+/* Ensure the nav links sit to the right of the header (RTL pages) */
+.nav-links {
+  margin-left: auto;
+}
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 500;
