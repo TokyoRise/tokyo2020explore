@@ -109,6 +109,17 @@ img { display: block; max-width: 100%; height: auto; }
 .nav-links {
   margin-left: auto;
 }
+
+/* Make the nav element fill available space so its child .nav-links
+   can use margin-left:auto to align to the right (consistent with homepage) */
+.nav-inner > nav {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+}
+.nav-inner > nav .nav-links {
+  margin-left: auto;
+}
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 500;
