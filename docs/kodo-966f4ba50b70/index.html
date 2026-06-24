@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KODO · קודו — חמישה ימים ביער | Tokyo is Yours</title>
+  <meta name="description" content="קודו — מסע בוטיק שקט בן חמישה ימים בלב חצי האי קיאיי, על שביל הנקאהצ'י של קומאנו קודו. מסע גולמי, עמוק וחסר יומרה, בליווי יפנולוג. קבוצה של עד 12 משתתפים." />
+  <!-- unlisted preview: keep out of search engines; reachable only via the direct link -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <link rel="canonical" href="https://tokyoisyours.com/kodo-966f4ba50b70/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="KODO · קודו — חמישה ימים ביער" />
+  <meta property="og:description" content="מסע בוטיק שקט בלב חצי האי קיאיי, על שבילי העלייה לרגל של קומאנו קודו. בליווי יפנולוג." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tokyoisyours.com/kodo-966f4ba50b70/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=80" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Frank Ruhl Libre: elegant Hebrew serif (headlines) · Heebo: Hebrew sans (UI/body) · EB Garamond: Latin display -->
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@200;300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:   '#F9F9F6',
+            paper:   '#FBFBFA',
+            ink:     '#1A1A1A',
+            graphite:'#3A3A38',
+            mute:    '#76766F',
+            hair:    '#E5E5E0',
+            moss:    '#6B7257',   // single subtle accent — muted moss
+            mossdk:  '#535B43',
+          },
+          fontFamily: {
+            serif:  ['"Frank Ruhl Libre"', 'Georgia', 'serif'],
+            sans:   ['Heebo', 'system-ui', 'sans-serif'],
+            latin:  ['"EB Garamond"', 'Georgia', 'serif'],
+          },
+          letterSpacing: {
+            'widest2': '0.32em',
+          },
+          maxWidth: {
+            'reading': '46rem',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    /* thin top reading-progress bar */
+    #progress { transform-origin: right center; }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 1s cubic-bezier(.16,.8,.3,1), transform 1s cubic-bezier(.16,.8,.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* vertical-script latin label */
+    .vlabel { writing-mode: vertical-rl; text-orientation: mixed; }
+
+    /* hairline inputs */
+    .field { background: transparent; border: 0; border-bottom: 1px solid #E5E5E0; outline: none; transition: border-color .4s ease; }
+    .field:focus { border-color: #1A1A1A; }
+    .field::placeholder { color: #A9A9A2; }
+
+    /* subtle film-grain over hero for analog feel */
+    .grain::after{
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:.5; mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    }
+
+    /* season tab active underline */
+    .season-tab[aria-selected="true"]{ color:#1A1A1A; }
+    .season-tab[aria-selected="true"] .bar{ transform: scaleX(1); }
+    .season-tab .bar{ transform: scaleX(0); transform-origin:right center; transition: transform .5s cubic-bezier(.16,.8,.3,1); }
+  </style>
+</head>
+
+<body class="bg-cream text-ink font-sans antialiased selection:bg-moss/20">
+
+  <!-- reading progress -->
+  <div class="fixed top-0 inset-x-0 h-[2px] z-[60] bg-transparent">
+    <div id="progress" class="h-full w-full bg-moss scale-x-0"></div>
+  </div>
+
+  <!-- ============================ HEADER ============================ -->
+  <header id="head" class="fixed top-0 inset-x-0 z-50 transition-all duration-500">
+    <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+      <div class="flex items-center justify-between h-[72px] md:h-[84px]">
+
+        <!-- logo -->
+        <a href="#top" class="group flex items-baseline gap-3">
+          <span class="font-latin tracking-[0.34em] text-[22px] md:text-[26px] leading-none">KODO</span>
+          <span class="text-moss text-[15px] md:text-[17px] leading-none" lang="ja">古道</span>
+          <span class="hidden sm:inline text-mute text-[11px] tracking-[0.18em] font-light translate-y-[-1px]">by&nbsp;Tokyo&nbsp;is&nbsp;Yours</span>
+        </a>
+
+        <!-- desktop nav -->
+        <nav class="hidden md:flex items-center gap-9 text-[14px] font-light tracking-wide">
+          <a href="#concept" class="hover:text-moss transition-colors">הקונספט</a>
+          <a href="#route"   class="hover:text-moss transition-colors">המסלול</a>
+          <a href="#lore"    class="hover:text-moss transition-colors">רקע</a>
+          <a href="#journal" class="hover:text-moss transition-colors">יומן</a>
+          <a href="#join" class="border-b border-ink pb-[3px] hover:text-moss hover:border-moss transition-colors">הצטרפות</a>
+        </nav>
+
+        <!-- mobile toggle -->
+        <button type="button" id="navToggle" class="md:hidden flex flex-col gap-[5px] p-2 -me-2" aria-label="תפריט" aria-expanded="false">
+          <span class="block w-6 h-px bg-ink transition-all"></span>
+          <span class="block w-6 h-px bg-ink transition-all"></span>
+          <span class="block w-6 h-px bg-ink transition-all"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-cream/98 backdrop-blur border-t border-hair">
+      <nav class="flex flex-col px-6 py-4 text-[17px] font-light">
+        <a href="#concept" class="py-3 border-b border-hair">הקונספט</a>
+        <a href="#route"   class="py-3 border-b border-hair">המסלול</a>
+        <a href="#lore"    class="py-3 border-b border-hair">רקע והעשרה</a>
+        <a href="#journal" class="py-3 border-b border-hair">יומן השטח</a>
+        <a href="#join"    class="py-3 text-moss">בקשת הצטרפות ←</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="relative h-[100svh] min-h-[640px] w-full grain overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=2000&q=80"
+           alt="יער קדר אפוף ערפל בחצי האי קיאיי"
+           class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/45"></div>
+      <div class="absolute inset-0 bg-ink/10"></div>
+
+      <!-- vertical latin label -->
+      <div class="hidden lg:block absolute top-1/2 -translate-y-1/2 left-10 text-cream/55">
+        <span class="vlabel font-latin tracking-[0.5em] text-sm" lang="en">THE&nbsp;ANCIENT&nbsp;ROAD</span>
+      </div>
+
+      <div class="relative h-full mx-auto max-w-[1400px] px-6 md:px-10 flex flex-col justify-end pb-20 md:pb-28">
+        <p class="reveal text-cream/80 text-[12px] md:text-[13px] tracking-[0.32em] font-light mb-6">
+          טוקיו שלך · מסע בוטיק שקט
+        </p>
+        <h1 class="reveal font-serif text-cream font-light leading-[0.98] text-[15vw] sm:text-[12vw] md:text-[8.5vw] lg:text-[7.5rem]">
+          קודו.<br class="md:hidden" />
+          <span class="block md:inline text-cream/95">חמישה ימים ביער.</span>
+        </h1>
+        <p class="reveal mt-8 max-w-reading text-cream/85 text-[17px] md:text-[21px] font-light leading-[1.9]">
+          מסע גולמי, עמוק וחסר־יומרה אל לב חצי האי קיאיי — על שבילי הנקאהצ'י העתיקים של
+          <span class="text-cream"> קומאנו קודו</span>, נתיב העלייה לרגל בן אלף השנים. חמישה ימי הליכה ביערות קדר, בליווי יפנולוג. בלי מצגות, בלי המון. רק הדרך.
+        </p>
+
+        <div class="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="#join" class="group inline-flex items-center gap-3 bg-cream text-ink px-7 py-3.5 text-[15px] tracking-wide hover:bg-moss hover:text-cream transition-colors duration-500">
+            בקשת הצטרפות
+            <span class="transition-transform duration-500 group-hover:-translate-x-1">←</span>
+          </a>
+          <a href="#concept" class="text-cream/80 text-[15px] tracking-wide border-b border-cream/40 pb-1 hover:text-cream hover:border-cream transition-colors">
+            מהו קודו?
+          </a>
+        </div>
+      </div>
+
+      <!-- scroll cue -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-cream/60 text-[11px] tracking-[0.3em] flex flex-col items-center gap-2">
+        <span>גללו</span>
+        <span class="block w-px h-8 bg-cream/40 animate-pulse"></span>
+      </div>
+    </section>
+
+
+    <!-- ============================ CONCEPT ============================ -->
+    <section id="concept" class="scroll-mt-24 py-24 md:py-40">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+
+        <div class="reveal flex items-baseline gap-5 mb-16 md:mb-24">
+          <span class="font-latin text-mute text-sm tracking-widest2">01</span>
+          <h2 class="font-serif text-[2.4rem] md:text-[3.6rem] font-light leading-none">הקונספט</h2>
+        </div>
+
+        <div class="reveal grid lg:grid-cols-12 gap-y-10 gap-x-12 mb-24 md:mb-32">
+          <p class="lg:col-span-7 font-serif text-[1.7rem] md:text-[2.4rem] font-light leading-[1.6] text-graphite">
+            קודו אינו טיול. הוא תרגול בקשב — חמישה ימים שבהם הגוף מאט עד שגם המחשבה נרגעת, והנוף מפסיק להיות רקע ומתחיל להיות שיחה.
+          </p>
+          <div class="lg:col-span-5 lg:pt-3">
+            <p class="text-mute text-[16px] md:text-[17px] leading-[2] font-light max-w-reading">
+              שביל קומאנו קודו חיבר במשך אלף שנה קיסרים ואיכרים, נזירים ומגלי־עולם, אל מקדשי הקודש שבהרים. אנחנו הולכים בו לאט, בקבוצה קטנה, ומניחים לקצב של הרגליים להכתיב את הכול. השם <span lang="ja" class="text-moss">古道</span> פירושו "הדרך העתיקה" — וגם, בהגייה אחרת, <span lang="ja" class="text-moss">鼓動</span>, פעימת הלב.
+            </p>
+          </div>
+        </div>
+
+        <!-- three pillars -->
+        <div class="border-t border-hair">
+          <div class="grid md:grid-cols-3">
+            <!-- pillar 1 -->
+            <article class="reveal group md:border-l border-hair py-12 md:py-16 md:pl-10">
+              <span class="font-latin text-moss text-sm tracking-widest2 block mb-6">i.</span>
+              <h3 class="font-serif text-[1.7rem] md:text-[1.9rem] font-normal leading-[1.4] mb-5">
+                קצב המחשבה<br/>כקצב ההליכה
+              </h3>
+              <p class="text-mute text-[15.5px] leading-[2] font-light">
+                כשהגוף נע בקצב אחיד שעות ארוכות, הראש מתרוקן מהרעש. אין מסכים, אין לוח זמנים צפוף — רק צעד אחר צעד, עד שהקשב נפתח מעצמו.
+              </p>
+            </article>
+            <!-- pillar 2 -->
+            <article class="reveal group md:border-l border-hair py-12 md:py-16 md:px-10 border-t md:border-t-0">
+              <span class="font-latin text-moss text-sm tracking-widest2 block mb-6">ii.</span>
+              <h3 class="font-serif text-[1.7rem] md:text-[1.9rem] font-normal leading-[1.4] mb-5">
+                עומק<br/>ללא פילטרים
+              </h3>
+              <p class="text-mute text-[15.5px] leading-[2] font-light">
+                לא גרסת התיירות של יפן, אלא יפן עצמה — גשם, בוץ, מקדש ריק בערפל, ושיחה אמיתית עם מי שחי שם. יפנולוג מלווה שמתרגם לא רק שפה, אלא הקשר.
+              </p>
+            </article>
+            <!-- pillar 3 -->
+            <article class="reveal group py-12 md:py-16 md:pr-10 border-t md:border-t-0">
+              <span class="font-latin text-moss text-sm tracking-widest2 block mb-6">iii.</span>
+              <h3 class="font-serif text-[1.7rem] md:text-[1.9rem] font-normal leading-[1.4] mb-5">
+                חוסן ביום,<br/>חסד בלילה
+              </h3>
+              <p class="text-mute text-[15.5px] leading-[2] font-light">
+                ימים של הליכה תובענית בהרים — ולעומתם ערבים של אכסניות ריוקאן, מעיינות אונסן חמים, ארוחת קאיסקי וסאקה מקומי. הניגוד הזה הוא כל העניין.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================ QUOTE BREAK ============================ -->
+    <section class="relative h-[70svh] min-h-[480px] grain overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=2000&q=80"
+           alt="יער הרים בשעת בין הערביים" loading="lazy"
+           class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-ink/55"></div>
+      <div class="relative h-full mx-auto max-w-[1400px] px-6 md:px-10 flex items-center">
+        <blockquote class="reveal max-w-3xl">
+          <p class="font-serif text-cream text-[2rem] md:text-[3.2rem] font-light leading-[1.45]">
+            ״ההר אינו יעד. הוא קצב שאתה לומד לנשום בתוכו.״
+          </p>
+          <footer class="mt-6 text-cream/70 text-sm tracking-[0.2em] font-light">— מתוך יומן השטח, נקאהצ'י</footer>
+        </blockquote>
+      </div>
+    </section>
+
+
+    <!-- ============================ ROUTE & SEASONS ============================ -->
+    <section id="route" class="scroll-mt-24 py-24 md:py-40">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+
+        <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">
+          <div class="flex items-baseline gap-5">
+            <span class="font-latin text-mute text-sm tracking-widest2">02</span>
+            <h2 class="font-serif text-[2.4rem] md:text-[3.6rem] font-light leading-none">מסלול הטיול</h2>
+          </div>
+          <p class="text-mute font-light max-w-md leading-[1.9] text-[15.5px]">
+            חמישה ימי הליכה על שביל הנקאהצ'י, ממוסגרים בהכנה רכה באוסקה ובנחיתה שקטה בטוקיו. בחרו עונה כדי לראות את אופי המסע.
+          </p>
+        </div>
+
+        <!-- season toggle -->
+        <div class="reveal border-b border-hair mb-14 md:mb-20">
+          <div class="flex gap-10" role="tablist" aria-label="עונת המסע">
+            <button type="button" class="season-tab relative pb-4 text-[1.15rem] md:text-[1.35rem] font-serif font-light text-mute transition-colors"
+                    data-season="autumn" role="tab" aria-selected="true">
+              סתיו · נובמבר
+              <span class="bar absolute bottom-[-1px] inset-x-0 h-[2px] bg-moss"></span>
+            </button>
+            <button type="button" class="season-tab relative pb-4 text-[1.15rem] md:text-[1.35rem] font-serif font-light text-mute transition-colors"
+                    data-season="spring" role="tab" aria-selected="false">
+              אביב · אפריל
+              <span class="bar absolute bottom-[-1px] inset-x-0 h-[2px] bg-moss"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+          <!-- season image + note -->
+          <div class="lg:col-span-5 lg:sticky lg:top-28">
+            <figure class="reveal">
+              <div class="relative grain overflow-hidden aspect-[4/5]">
+                <img id="seasonImg"
+                     src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1200&q=80"
+                     alt="נוף סתיו ביפן" loading="lazy"
+                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent"></div>
+              </div>
+              <figcaption class="mt-5 flex items-start gap-4">
+                <span id="seasonKanji" lang="ja" class="font-serif text-moss text-2xl leading-none pt-1">秋</span>
+                <p id="seasonNote" class="text-mute text-[15px] font-light leading-[1.9]">
+                  מומיג'י — מייפל אדום על מדרגות האבן, אוויר צלול וקריר, וערפילי בוקר שעולים מן העמקים. העונה השקטה והדרמטית ביותר על השביל.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- timeline -->
+          <div class="lg:col-span-7">
+            <ol id="timeline" class="relative">
+              <!-- entries injected/styled here; built statically, content swaps per season -->
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================ BACKGROUND & LORE ============================ -->
+    <section id="lore" class="scroll-mt-24 py-24 md:py-40 bg-paper border-y border-hair">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+
+        <div class="reveal flex items-baseline gap-5 mb-16 md:mb-24">
+          <span class="font-latin text-mute text-sm tracking-widest2">03</span>
+          <h2 class="font-serif text-[2.4rem] md:text-[3.6rem] font-light leading-none">העשרה וחומרי רקע</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+
+          <!-- lead essay -->
+          <div class="reveal lg:col-span-7">
+            <figure class="relative grain overflow-hidden aspect-[16/10] mb-9">
+              <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=1400&q=80"
+                   alt="מקדש ופאגודה למרגלות הר פוג'י" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover" />
+            </figure>
+            <h3 class="font-serif text-[1.8rem] md:text-[2.2rem] font-light leading-[1.4] mb-5">
+              כשהאלים והבודהות חלקו את אותו הר
+            </h3>
+            <div class="max-w-reading space-y-5 text-graphite text-[16.5px] leading-[2] font-light">
+              <p>
+                קומאנו הוא אחד המקומות הנדירים שבהם <span class="text-moss">שינטו ובודהיזם</span> לא רק חיו זה לצד זה אלא נמזגו זה בזה. תורת ה־<span lang="ja">本地垂迹</span> (הונג'י סויג'אקו) ראתה בקאמי המקומיים התגלמויות של בודהות — וכך הפך השביל למסע שבו כל מפל, סלע ועץ עתיק הם בו־זמנית מקדש ופסל.
+              </p>
+              <p>
+                לאורך חמשת הימים נפזר מיקרו־מסות קצרות: על נזירי ה־יממבושי, על משמעות ההיטוהרות במעיין, ועל הסיבה שבגללה דווקא <em>ההליכה</em> — ולא היעד — נחשבה למעשה הקדוש.
+              </p>
+            </div>
+          </div>
+
+          <!-- reading list -->
+          <aside class="reveal lg:col-span-5 lg:ps-4">
+            <p class="font-latin text-mute text-sm tracking-widest2 mb-8">רשימת קריאה אצורה</p>
+            <ul class="divide-y divide-hair">
+              <li class="py-5 group">
+                <a href="#" class="block">
+                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">קומאנו קודו — אלף שנות עלייה לרגל</p>
+                  <p class="text-mute text-[14px] font-light mt-1.5">מבוא היסטורי · 9 דק' קריאה</p>
+                </a>
+              </li>
+              <li class="py-5 group">
+                <a href="#" class="block">
+                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">שינטו, בודהיזם והקאמי שבעצים</p>
+                  <p class="text-mute text-[14px] font-light mt-1.5">סינקרטיזם דתי · 7 דק' קריאה</p>
+                </a>
+              </li>
+              <li class="py-5 group">
+                <a href="#" class="block">
+                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">אֶטיקֶט של אונסן וריוקאן</p>
+                  <p class="text-mute text-[14px] font-light mt-1.5">מדריך מעשי · 5 דק' קריאה</p>
+                </a>
+              </li>
+              <li class="py-5 group">
+                <a href="#" class="block">
+                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">מילון כיס: 30 מילים לדרך</p>
+                  <p class="text-mute text-[14px] font-light mt-1.5">שפה · 4 דק' קריאה</p>
+                </a>
+              </li>
+            </ul>
+            <a href="#journal" class="inline-flex items-center gap-2 mt-8 text-[15px] border-b border-ink pb-1 hover:text-moss hover:border-moss transition-colors">
+              לכל חומרי הרקע <span>←</span>
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================ THE LOG / JOURNAL ============================ -->
+    <section id="journal" class="scroll-mt-24 py-24 md:py-40">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+
+        <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24">
+          <div class="flex items-baseline gap-5">
+            <span class="font-latin text-mute text-sm tracking-widest2">04</span>
+            <h2 class="font-serif text-[2.4rem] md:text-[3.6rem] font-light leading-none">יומן השטח</h2>
+          </div>
+          <p class="text-mute font-light max-w-sm leading-[1.9] text-[15.5px]">
+            פתקאות מהדרך — מחשבות, תצפיות וצילומים מן המסעות הקודמים.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 border-t border-hair">
+          <!-- entry -->
+          <article class="reveal group border-b border-hair md:border-l md:[&:nth-child(2n)]:border-l-0 lg:[&:nth-child(2n)]:border-l lg:[&:nth-child(3n)]:border-l-0 py-9 md:px-9 md:first:ps-0">
+            <a href="#" class="block">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">14 · 11 · 2025</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 group-hover:text-moss transition-colors">ערפל בבוקר השלישי</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95]">יצאנו לפני הזריחה והעמק היה מכוסה לבן — ולרגע נדמה היה שאנחנו היחידים שנותרו בעולם.</p>
+            </a>
+          </article>
+          <article class="reveal group border-b border-hair md:border-l md:[&:nth-child(2n)]:border-l-0 lg:[&:nth-child(2n)]:border-l lg:[&:nth-child(3n)]:border-l-0 py-9 md:px-9">
+            <a href="#" class="block">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">06 · 04 · 2025</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 group-hover:text-moss transition-colors">סאקה אחרי עשרים קילומטר</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95]">על הטעם המדויק של הכוס הראשונה כשהרגליים כואבות והאמבט החם עוד מהביל מאחור.</p>
+            </a>
+          </article>
+          <article class="reveal group border-b border-hair lg:border-l-0 py-9 md:px-9">
+            <a href="#" class="block">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">22 · 11 · 2024</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 group-hover:text-moss transition-colors">מדרגות האבן של דאימון־זאקה</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95]">שש מאות מדרגות תחת חופת קדרים בני אלף שנה. אף תמונה לא מצליחה להחזיק את הדממה הזו.</p>
+            </a>
+          </article>
+          <article class="reveal group border-b border-hair md:border-l md:[&:nth-child(2n)]:border-l-0 lg:[&:nth-child(2n)]:border-l lg:[&:nth-child(3n)]:border-l-0 py-9 md:px-9 md:first:ps-0">
+            <a href="#" class="block">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">03 · 04 · 2024</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 group-hover:text-moss transition-colors">פריחה על שביל ריק</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95]">בעוד טוקיו נדחסת מתחת לסאקורה, מצאנו את הפריחה לבדנו — נושרת לאט על שביל שאיש לא דרך בו.</p>
+            </a>
+          </article>
+          <article class="reveal group border-b border-hair md:border-l md:[&:nth-child(2n)]:border-l-0 lg:[&:nth-child(2n)]:border-l lg:[&:nth-child(3n)]:border-l-0 py-9 md:px-9">
+            <a href="#" class="block">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">18 · 11 · 2023</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 group-hover:text-moss transition-colors">השיחה עם הנזיר</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95]">חצי שעה ליד תנור פחמים, על מה שנשאר כשמורידים את כל מה שאפשר להוריד.</p>
+            </a>
+          </article>
+          <article class="reveal group border-b border-hair lg:border-l-0 py-9 md:px-9">
+            <a href="#" class="block flex flex-col h-full">
+              <time class="font-latin text-mute text-[13px] tracking-widest2">בקרוב</time>
+              <h3 class="font-serif text-[1.5rem] font-normal leading-[1.45] mt-4 mb-3 text-mute">פתקאות מהמסע הבא</h3>
+              <p class="text-mute text-[15px] font-light leading-[1.95] mb-6">היומן ייפתח עם יציאת הקבוצה הקרובה.</p>
+              <span class="mt-auto inline-flex items-center gap-2 text-[14px] text-moss border-b border-moss pb-1 w-fit">להצטרפות לקבוצה ←</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================ APPLICATION / JOIN ============================ -->
+    <section id="join" class="scroll-mt-24 py-24 md:py-40 bg-ink text-cream">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+        <div class="grid lg:grid-cols-12 gap-14 lg:gap-20">
+
+          <!-- left: copy -->
+          <div class="lg:col-span-5">
+            <div class="reveal flex items-baseline gap-5 mb-10">
+              <span class="font-latin text-cream/40 text-sm tracking-widest2">05</span>
+              <h2 class="font-serif text-[2.4rem] md:text-[3.4rem] font-light leading-none">שיחת התאמה</h2>
+            </div>
+            <p class="reveal text-cream/80 text-[17px] md:text-[18px] font-light leading-[2] max-w-reading">
+              הקבוצה מוגבלת ל־<span class="text-cream font-normal">12 משתתפים בלבד</span>. מסע כזה תלוי באנשים שהולכים בו יחד — ולכן ההרשמה אינה דרך טופס אוטומטי, אלא דרך שיחה אישית קצרה.
+            </p>
+            <p class="reveal text-cream/60 text-[15.5px] font-light leading-[2] mt-6 max-w-reading">
+              השאירו פרטים ומשפט או שניים על עצמכם, ועמרי יחזור אליכם לתיאום שיחה. אין כאן מכירה — רק היכרות.
+            </p>
+
+            <dl class="reveal mt-12 space-y-6 text-[15px]">
+              <div class="flex gap-4 items-baseline">
+                <dt class="text-cream/40 w-24 font-light">עונות</dt>
+                <dd class="text-cream/90 font-light">נובמבר · אפריל</dd>
+              </div>
+              <div class="flex gap-4 items-baseline">
+                <dt class="text-cream/40 w-24 font-light">משך</dt>
+                <dd class="text-cream/90 font-light">8 ימים · 5 ימי הליכה</dd>
+              </div>
+              <div class="flex gap-4 items-baseline">
+                <dt class="text-cream/40 w-24 font-light">קבוצה</dt>
+                <dd class="text-cream/90 font-light">עד 12 · בליווי יפנולוג</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- right: form -->
+          <div class="lg:col-span-7 lg:ps-4">
+            <form id="joinForm" class="reveal" novalidate>
+              <!-- full name -->
+              <div class="mb-12">
+                <label for="f-name" class="block text-cream/50 text-[13px] tracking-[0.18em] font-light mb-4">שם מלא</label>
+                <input id="f-name" name="name" type="text" required autocomplete="name"
+                       class="field !border-cream/25 focus:!border-cream w-full text-cream text-[19px] md:text-[21px] font-light py-3 placeholder:text-cream/30"
+                       placeholder="ישראל ישראלי" />
+              </div>
+
+              <!-- email + phone -->
+              <div class="grid sm:grid-cols-2 gap-8 sm:gap-12 mb-12">
+                <div>
+                  <label for="f-email" class="block text-cream/50 text-[13px] tracking-[0.18em] font-light mb-4">דוא״ל</label>
+                  <input id="f-email" name="email" type="email" required autocomplete="email" dir="ltr"
+                         class="field !border-cream/25 focus:!border-cream w-full text-cream text-[19px] md:text-[21px] font-light py-3 placeholder:text-cream/30 text-right"
+                         placeholder="name@email.com" />
+                </div>
+                <div>
+                  <label for="f-phone" class="block text-cream/50 text-[13px] tracking-[0.18em] font-light mb-4">טלפון</label>
+                  <input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr"
+                         class="field !border-cream/25 focus:!border-cream w-full text-cream text-[19px] md:text-[21px] font-light py-3 placeholder:text-cream/30 text-right"
+                         placeholder="050-0000000" />
+                </div>
+              </div>
+
+              <!-- message -->
+              <div class="mb-12">
+                <label for="f-msg" class="block text-cream/50 text-[13px] tracking-[0.18em] font-light mb-4">מה מחבר אותך למסע הזה?</label>
+                <textarea id="f-msg" name="message" rows="4"
+                          class="field !border-cream/25 focus:!border-cream w-full text-cream text-[18px] md:text-[19px] font-light py-3 leading-[1.9] resize-none placeholder:text-cream/30"
+                          placeholder="ספרו לנו קצת על הזיקה שלכם ליפן, לטבע או לצורך בניקוי ראש…"></textarea>
+              </div>
+
+              <!-- submit -->
+              <div class="flex flex-wrap items-center gap-6">
+                <button type="submit"
+                        class="group inline-flex items-center gap-3 bg-cream text-ink px-8 py-4 text-[15px] tracking-wide hover:bg-moss hover:text-cream transition-colors duration-500">
+                  שליחת פנייה לשיחה עם עמרי
+                  <span class="transition-transform duration-500 group-hover:-translate-x-1">←</span>
+                </button>
+                <p class="text-cream/40 text-[13px] font-light">תגובה תוך 48 שעות · ללא התחייבות</p>
+              </div>
+
+              <!-- success state -->
+              <div id="formDone" class="hidden mt-10 border-t border-cream/20 pt-8">
+                <p class="font-serif text-[1.6rem] font-light text-cream">תודה — הפנייה נשלחת. ✓</p>
+                <p class="text-cream/60 font-light mt-3 leading-[1.9]">אם חלון הדוא״ל לא נפתח אוטומטית, אפשר לכתוב ישירות אל
+                  <a id="mailFallback" href="#" class="text-moss border-b border-moss/50 hover:border-moss">hello@tokyoisyours.com</a>.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="bg-cream border-t border-hair">
+    <div class="mx-auto max-w-[1400px] px-6 md:px-10 py-16">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+        <div>
+          <a href="#top" class="flex items-baseline gap-3">
+            <span class="font-latin tracking-[0.34em] text-[22px] leading-none">KODO</span>
+            <span class="text-moss text-[15px]" lang="ja">古道</span>
+          </a>
+          <p class="text-mute text-[14px] font-light mt-4 max-w-xs leading-[1.9]">
+            מסע בוטיק שקט אל קומאנו קודו, מבית <a href="https://tokyoisyours.com" class="border-b border-hair hover:text-moss hover:border-moss transition-colors">Tokyo is Yours</a>.
+          </p>
+        </div>
+
+        <nav class="flex flex-wrap gap-x-8 gap-y-3 text-[14px] font-light text-mute">
+          <a href="#concept" class="hover:text-moss transition-colors">הקונספט</a>
+          <a href="#route" class="hover:text-moss transition-colors">המסלול</a>
+          <a href="#lore" class="hover:text-moss transition-colors">רקע</a>
+          <a href="#journal" class="hover:text-moss transition-colors">יומן</a>
+          <a href="#join" class="hover:text-moss transition-colors">הצטרפות</a>
+          <a href="https://tokyoisyours.com" class="hover:text-moss transition-colors">→ tokyoisyours.com</a>
+        </nav>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-hair flex flex-col sm:flex-row justify-between gap-3 text-[12.5px] text-mute font-light tracking-wide">
+        <span>© 2026 Tokyo is Yours · KODO 古道</span>
+        <span class="font-latin tracking-[0.2em]">FIVE DAYS IN THE FOREST</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================ SCRIPT ============================ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ---- config: where applications are sent ---- */
+    var CONTACT_EMAIL = 'hello@tokyoisyours.com';   // ← עדכנו לכתובת של עמרי
+
+    /* ---- header: solidify on scroll ---- */
+    var head = document.getElementById('head');
+    var progress = document.getElementById('progress');
+    function onScroll() {
+      var y = window.scrollY || 0;
+      if (y > 40) {
+        head.classList.add('bg-cream/95', 'backdrop-blur', 'border-b', 'border-hair', 'shadow-[0_1px_0_rgba(0,0,0,0.02)]');
+      } else {
+        head.classList.remove('bg-cream/95', 'backdrop-blur', 'border-b', 'border-hair', 'shadow-[0_1px_0_rgba(0,0,0,0.02)]');
+      }
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      var p = max > 0 ? y / max : 0;
+      progress.style.transform = 'scaleX(' + p + ')';
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ---- mobile menu ---- */
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ---- scroll reveal ---- */
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el, i) {
+      el.style.transitionDelay = (Math.min(i % 4, 3) * 80) + 'ms';
+      io.observe(el);
+    });
+
+    /* ---- seasons data + render ---- */
+    var SEASONS = {
+      autumn: {
+        kanji: '秋',
+        img: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1200&q=80',
+        note: 'מומיג\'י — מייפל אדום על מדרגות האבן, אוויר צלול וקריר, וערפילי בוקר שעולים מן העמקים. העונה השקטה והדרמטית ביותר על השביל.',
+        days: [
+          { tag: 'הכנה', place: 'אוסקה', title: 'נחיתה רכה והתכווננות', body: 'לילה ראשון בעיר. סידור ציוד, ארוחת ערב משותפת ותדריך פתיחה — מעבר אטי מהמטוס אל קצב המסע.' },
+          { tag: 'יום 01', place: 'טאקיג\'ירי → טאקאהארה', title: 'שער היער', body: 'הכניסה הטקסית אל קומאנו קודו ועלייה אל "כפר הערפילים" התלוי במדרון, עם נוף ראשון אל רכסי קיאיי.' },
+          { tag: 'יום 02', place: 'טאקאהארה → צ\'יקאצויו', title: 'אל לב ההרים', body: 'יום הליכה ארוך דרך מעברים מיוערים ומקדשי אוֹג\'י קטנים. לינה בכפר הרים ומעיין אונסן ראשון.' },
+          { tag: 'יום 03', place: 'צ\'יקאצויו → הונגו', title: 'הבוקר בערפל', body: 'יציאה מוקדמת אל אחד הקטעים היפים בשביל, וירידה אל קוּמאנוֹ הוֹנְגוּ טאישה — המקדש המרכזי.' },
+          { tag: 'יום 04', place: 'הונגו → יונומינה', title: 'מים חמים מן הסלע', body: 'מסלול קצר יותר אל אחד ממעיינות החמים העתיקים ביפן. אחר צהריים של מנוחה, אמבט והתבוננות.' },
+          { tag: 'יום 05', place: 'נאצ\'י', title: 'המפל והפאגודה', body: 'שיא המסע: מדרגות דאימון־זאקה תחת קדרים עתיקים, מפל נאצ\'י והפאגודה האדומה. סגירת מעגל.' },
+          { tag: 'סיום', place: 'טוקיו', title: 'נחיתה שקטה', body: 'מעבר מן ההר אל העיר. יום חופשי בטוקיו לעיכול החוויה, ערב פרידה וטעימה אחרונה לפני הטיסה.' }
+        ]
+      },
+      spring: {
+        kanji: '春',
+        img: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1200&q=80',
+        note: 'סאקורה והאנה — פריחה על שביל ריק הרחק מהמון העיר, ירק רענן אחרי החורף וימים ארוכים ונוחים להליכה. עונת ההתחדשות.',
+        days: [
+          { tag: 'הכנה', place: 'אוסקה', title: 'נחיתה רכה והתכווננות', body: 'לילה ראשון בעיר. סידור ציוד, ארוחת ערב משותפת ותדריך פתיחה — מעבר אטי מהמטוס אל קצב המסע.' },
+          { tag: 'יום 01', place: 'טאקיג\'ירי → טאקאהארה', title: 'שער היער', body: 'הכניסה הטקסית אל השביל, כשעצי הדובדבן בפריחתם. עלייה אל "כפר הערפילים" ונוף ראשון אל העמקים הירוקים.' },
+          { tag: 'יום 02', place: 'טאקאהארה → צ\'יקאצויו', title: 'אל לב ההרים', body: 'יום הליכה ארוך באוויר אביבי נעים, דרך יערות מתעוררים ומקדשי אוֹג\'י. לינה בכפר הרים ומעיין אונסן.' },
+          { tag: 'יום 03', place: 'צ\'יקאצויו → הונגו', title: 'בוקר של ירק', body: 'אחד הקטעים היפים בשביל בלבוש אביבי, וירידה אל קוּמאנוֹ הוֹנְגוּ טאישה — המקדש המרכזי.' },
+          { tag: 'יום 04', place: 'הונגו → יונומינה', title: 'מים חמים מן הסלע', body: 'מסלול קצר יותר אל מעיין חם עתיק. אחר צהריים של מנוחה, אמבט, ופריחה אחרונה נושרת על המים.' },
+          { tag: 'יום 05', place: 'נאצ\'י', title: 'המפל והפאגודה', body: 'שיא המסע: מדרגות דאימון־זאקה תחת קדרים עתיקים, מפל נאצ\'י והפאגודה האדומה. סגירת מעגל.' },
+          { tag: 'סיום', place: 'טוקיו', title: 'נחיתה שקטה', body: 'מעבר מן ההר אל העיר תחת הסאקורה. יום חופשי בטוקיו, ערב פרידה וטעימה אחרונה לפני הטיסה.' }
+        ]
+      }
+    };
+
+    var timeline = document.getElementById('timeline');
+    var seasonImg = document.getElementById('seasonImg');
+    var seasonNote = document.getElementById('seasonNote');
+    var seasonKanji = document.getElementById('seasonKanji');
+
+    function renderTimeline(key) {
+      var s = SEASONS[key];
+      // image + note
+      seasonImg.style.opacity = '0';
+      setTimeout(function () { seasonImg.src = s.img; seasonImg.style.opacity = '1'; }, 220);
+      seasonNote.textContent = s.note;
+      seasonKanji.textContent = s.kanji;
+
+      // entries
+      timeline.innerHTML = s.days.map(function (d, i) {
+        var last = i === s.days.length - 1;
+        return '' +
+          '<li class="relative ps-8 md:ps-10 ' + (last ? 'pb-0' : 'pb-12') + '">' +
+            // vertical line
+            (last ? '' : '<span class="absolute top-3 bottom-0 right-[5px] w-px bg-hair"></span>') +
+            // node
+            '<span class="absolute top-2 right-0 w-[11px] h-[11px] rounded-full border border-moss bg-cream"></span>' +
+            '<div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">' +
+              '<span class="font-latin text-moss text-[12px] tracking-widest2">' + d.tag + '</span>' +
+              '<span class="text-mute text-[13px] font-light tracking-wide">' + d.place + '</span>' +
+            '</div>' +
+            '<h3 class="font-serif text-[1.5rem] md:text-[1.7rem] font-normal leading-[1.4] mb-2">' + d.title + '</h3>' +
+            '<p class="text-mute text-[15.5px] font-light leading-[1.95] max-w-xl">' + d.body + '</p>' +
+          '</li>';
+      }).join('');
+    }
+
+    var tabs = document.querySelectorAll('.season-tab');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+        tab.setAttribute('aria-selected', 'true');
+        renderTimeline(tab.dataset.season);
+      });
+    });
+    renderTimeline('autumn');  // default
+
+    /* ---- form: build a graceful mailto, show success ---- */
+    var form = document.getElementById('joinForm');
+    var done = document.getElementById('formDone');
+    var mailFallback = document.getElementById('mailFallback');
+    mailFallback.textContent = CONTACT_EMAIL;
+    mailFallback.href = 'mailto:' + CONTACT_EMAIL;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (form.name.value || '').trim();
+      var email = (form.email.value || '').trim();
+      if (!name || !email) {
+        if (!name) form.name.focus(); else form.email.focus();
+        return;
+      }
+      var phone = (form.phone.value || '').trim();
+      var msg = (form.message.value || '').trim();
+
+      var subject = 'בקשת הצטרפות ל-KODO · ' + name;
+      var bodyLines = [
+        'שם מלא: ' + name,
+        'דוא״ל: ' + email,
+        'טלפון: ' + (phone || '—'),
+        '',
+        'מה מחבר אותי למסע:',
+        msg || '—',
+        '',
+        '— נשלח מעמוד KODO · tokyoisyours.com/kodo'
+      ];
+      var href = 'mailto:' + CONTACT_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(bodyLines.join('\n'));
+
+      done.classList.remove('hidden');
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.location.href = href;
+    });
+  })();
+  </script>
+</body>
+</html>
