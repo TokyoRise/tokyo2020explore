@@ -354,35 +354,23 @@
             </div>
           </div>
 
-          <!-- reading list -->
+          <!-- reading list (data-driven · rendered from LIBRARY[] in the script) -->
           <aside class="reveal lg:col-span-5 lg:ps-4">
-            <p class="font-latin text-mute text-sm tracking-widest2 mb-8">רשימת קריאה אצורה</p>
-            <ul class="divide-y divide-hair">
-              <li class="py-5 group">
-                <a href="#" class="block">
-                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">קומאנו קודו — אלף שנות עלייה לרגל</p>
-                  <p class="text-mute text-[14px] font-light mt-1.5">מבוא היסטורי · 9 דק' קריאה</p>
-                </a>
-              </li>
-              <li class="py-5 group">
-                <a href="#" class="block">
-                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">שינטו, בודהיזם והקאמי שבעצים</p>
-                  <p class="text-mute text-[14px] font-light mt-1.5">סינקרטיזם דתי · 7 דק' קריאה</p>
-                </a>
-              </li>
-              <li class="py-5 group">
-                <a href="#" class="block">
-                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">אֶטיקֶט של אונסן וריוקאן</p>
-                  <p class="text-mute text-[14px] font-light mt-1.5">מדריך מעשי · 5 דק' קריאה</p>
-                </a>
-              </li>
-              <li class="py-5 group">
-                <a href="#" class="block">
-                  <p class="font-serif text-[1.25rem] font-normal group-hover:text-moss transition-colors leading-snug">מילון כיס: 30 מילים לדרך</p>
-                  <p class="text-mute text-[14px] font-light mt-1.5">שפה · 4 דק' קריאה</p>
-                </a>
-              </li>
-            </ul>
+            <p class="font-latin text-mute text-sm tracking-widest2 mb-6">רשימת קריאה אצורה</p>
+
+            <!-- tag filter -->
+            <div id="libFilters" class="flex flex-wrap gap-x-5 gap-y-2 mb-2 text-[13.5px] font-light" role="group" aria-label="סינון לפי נושא">
+              <button type="button" data-filter="*"          aria-pressed="true"  class="lib-filter pb-1 border-b text-ink border-moss transition-colors">הכול</button>
+              <button type="button" data-filter="ספר"        aria-pressed="false" class="lib-filter pb-1 border-b text-mute border-transparent hover:text-ink transition-colors">ספרים</button>
+              <button type="button" data-filter="מאמר"       aria-pressed="false" class="lib-filter pb-1 border-b text-mute border-transparent hover:text-ink transition-colors">מאמרים</button>
+              <button type="button" data-filter="מסע"        aria-pressed="false" class="lib-filter pb-1 border-b text-mute border-transparent hover:text-ink transition-colors">מסע</button>
+              <button type="button" data-filter="רוחניות"    aria-pressed="false" class="lib-filter pb-1 border-b text-mute border-transparent hover:text-ink transition-colors">רוחניות</button>
+              <button type="button" data-filter="לוגיסטיקה"  aria-pressed="false" class="lib-filter pb-1 border-b text-mute border-transparent hover:text-ink transition-colors">לוגיסטיקה</button>
+            </div>
+
+            <ul id="libraryList" class="divide-y divide-hair"></ul>
+            <p id="libEmpty" class="hidden text-mute text-[14px] font-light py-6">אין פריטים בנושא זה עדיין.</p>
+
             <a href="#journal" class="inline-flex items-center gap-2 mt-8 text-[15px] border-b border-ink pb-1 hover:text-moss hover:border-moss transition-colors">
               לכל חומרי הרקע <span>←</span>
             </a>
@@ -744,6 +732,121 @@
       done.scrollIntoView({ behavior: 'smooth', block: 'center' });
       window.location.href = href;
     });
+
+
+    /* ============================================================
+       CURATED LIBRARY — data-driven reading list + tag filter
+       To add an item: push an object with the same shape below.
+       Fields: type ('book'|'essay'), title, author, description,
+               link, image (cover URL or null), cover (short latin
+               label for the typographic tile), tags [].
+       ============================================================ */
+    var LIBRARY = [
+      /* ---- ספרים על קומאנו קודו ---- */
+      {
+        type: 'book',
+        title: `Koya Bound: Walking the Kumano Kodo`,
+        author: `Craig Mod & Dan Rubin`,
+        description: `יצירת אמנות ויזואלית וסיפורית. יומן מסע מצולם בשחור-לבן קולנועי שתופס במדויק את הבדידות, הטחב, והשקט המנטלי של הצעידה ביערות הארזים.`,
+        link: `https://craigmod.com/books/koya_bound/`,
+        image: null,
+        cover: `KOYA BOUND`,
+        tags: ['ספר', 'מסע', 'צילום']
+      },
+      {
+        type: 'book',
+        title: `Japan's Kumano Kodo Pilgrimage`,
+        author: `Kat Davis`,
+        description: `התנ"ך הלוגיסטי של השביל. פירוט טופוגרפי מדויק, מפות שטח, עליות וירידות במטרים והנחיות בטיחות לכל מקטע ומקטע במסלול הנאקאהצ'י.`,
+        link: `https://www.cicerone.co.uk/`,
+        image: null,
+        cover: `KUMANO KODŌ`,
+        tags: ['ספר', 'לוגיסטיקה', 'מדריך']
+      },
+      {
+        type: 'book',
+        title: `The Roads to Sata`,
+        author: `Alan Booth`,
+        description: `קלאסיקת ספרות מסע על יפן האמיתית, הרחוקה והלא-מפולטרת. כתיבה חדה, חכמה ונטולת קלישאות של אדם שחצה את יפן כולה ברגל, בגובה העיניים ובצידי הדרכים.`,
+        link: `https://www.amazon.com/Roads-Sata-Walk-Through-Japan/dp/1408884560`,
+        image: null,
+        cover: `ROADS TO SATA`,
+        tags: ['ספר', 'מסע', 'ספרות']
+      },
+      {
+        type: 'book',
+        title: `Shugendo: Essence and Practice`,
+        author: `Shokai Kanazawa`,
+        description: `צלילה מרתקת אל עולמם של נזירי ההרים (הימאבושי). הספר מפרק את תפיסת העולם הרוחנית שהפכה את הרי קיאי למקום של לידה מחדש דרך מאמץ פיזי סיזיפי.`,
+        link: `https://www.amazon.com/`,
+        image: null,
+        cover: `SHUGENDŌ`,
+        tags: ['ספר', 'רוחניות']
+      },
+
+      /* ---- מיקרו-מסות מבית KODO ---- */
+      { type: 'essay', title: `קומאנו קודו — אלף שנות עלייה לרגל`, author: `מבוא היסטורי · 9 דק׳ קריאה`, description: ``, link: `#`, image: null, cover: '', tags: ['מאמר', 'היסטוריה'] },
+      { type: 'essay', title: `שינטו, בודהיזם והקאמי שבעצים`,      author: `סינקרטיזם דתי · 7 דק׳ קריאה`, description: ``, link: `#`, image: null, cover: '', tags: ['מאמר', 'רוחניות'] },
+      { type: 'essay', title: `אֶטיקֶט של אונסן וריוקאן`,           author: `מדריך מעשי · 5 דק׳ קריאה`,  description: ``, link: `#`, image: null, cover: '', tags: ['מאמר', 'לוגיסטיקה'] },
+      { type: 'essay', title: `מילון כיס: 30 מילים לדרך`,          author: `שפה · 4 דק׳ קריאה`,        description: ``, link: `#`, image: null, cover: '', tags: ['מאמר', 'שפה'] }
+    ];
+
+    var libList = document.getElementById('libraryList');
+    var libEmpty = document.getElementById('libEmpty');
+    var libFilters = document.getElementById('libFilters');
+
+    function libCover(it) {
+      if (it.image) {
+        return '<img src="' + it.image + '" alt="" loading="lazy" class="shrink-0 w-14 h-20 object-cover border border-hair" />';
+      }
+      if (it.type !== 'book') return '';
+      return '<span class="shrink-0 w-14 h-20 border border-hair bg-paper relative overflow-hidden" aria-hidden="true">' +
+               '<span class="absolute top-0 inset-x-0 h-[3px] bg-moss/70"></span>' +
+               '<span class="absolute inset-0 flex items-center justify-center px-1 text-center font-latin text-[9px] tracking-wide leading-[1.25] text-graphite">' + it.cover + '</span>' +
+             '</span>';
+    }
+
+    function libItemHTML(it) {
+      var external = typeof it.link === 'string' && it.link.indexOf('http') === 0;
+      var attrs = external ? ' target="_blank" rel="noopener"' : '';
+      var desc = it.description
+        ? '<span class="block text-mute text-[13.5px] font-light leading-[1.75] mt-1.5">' + it.description + '</span>'
+        : '';
+      return '<li class="lib-item py-5 group" data-tags="' + it.tags.join(' ') + '">' +
+               '<a href="' + it.link + '"' + attrs + ' class="flex gap-4 items-start">' +
+                 libCover(it) +
+                 '<span class="block flex-1 min-w-0">' +
+                   '<span class="block font-serif text-[1.2rem] font-normal group-hover:text-moss transition-colors leading-snug">' + it.title + '</span>' +
+                   '<span class="block text-mute text-[13px] font-light mt-1">' + it.author + '</span>' +
+                   desc +
+                 '</span>' +
+               '</a>' +
+             '</li>';
+    }
+
+    function renderLibrary(filter) {
+      var items = LIBRARY.filter(function (it) {
+        return filter === '*' || it.tags.indexOf(filter) !== -1;
+      });
+      libList.innerHTML = items.map(libItemHTML).join('');
+      libEmpty.classList.toggle('hidden', items.length > 0);
+    }
+
+    libFilters.querySelectorAll('.lib-filter').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        libFilters.querySelectorAll('.lib-filter').forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+          b.classList.remove('text-ink', 'border-moss');
+          b.classList.add('text-mute', 'border-transparent');
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('text-ink', 'border-moss');
+        btn.classList.remove('text-mute', 'border-transparent');
+        renderLibrary(btn.dataset.filter);
+      });
+    });
+
+    renderLibrary('*');
   })();
   </script>
 </body>
