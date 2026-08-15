@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -62,6 +62,8 @@
              data-product="TOKYO IS YOURS — מהדורה מחודשת"
              data-sku="tokyo-is-yours"
              data-variants="printed,digital"
+             data-paybox-printed="https://links.payboxapp.com/Q4gudAnnD1b"
+             data-paybox-digital="https://links.payboxapp.com/UoqQ85euC5b"
              target="_blank" rel="noopener">לרכישת הספר דרך PayBox</a>
         </div>
       </div>
@@ -88,6 +90,8 @@
                  data-product="TOKYO IS YOURS — מהדורה מחודשת"
                  data-sku="tokyo-is-yours"
                  data-variants="printed,digital"
+                 data-paybox-printed="https://links.payboxapp.com/Q4gudAnnD1b"
+                 data-paybox-digital="https://links.payboxapp.com/UoqQ85euC5b"
                  target="_blank" rel="noopener">לרכישה דרך PayBox</a>
             </div>
           </div>
@@ -237,7 +241,7 @@
 
   <div class="order-modal-backdrop" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="omTitle">
     <form class="order-modal" id="orderForm"
-          action="https://formsubmit.co/omri.reis@gmail.com"
+          action="https://formsubmit.co/tokyo2020explore@gmail.com"
           method="POST"
           enctype="multipart/form-data"
           autocomplete="on">
@@ -273,7 +277,7 @@
         <label>גרסה *</label>
         <div class="om-variant-row">
           <label><input type="radio" name="גרסה" value="ספר מודפס (₪120)" />ספר מודפס ₪120</label>
-          <label><input type="radio" name="גרסה" value="גרסה דיגיטלית (₪60)" />דיגיטלי ₪60</label>
+          <label><input type="radio" name="גרסה" value="גרסה דיגיטלית (₪100)" />דיגיטלי ₪100</label>
         </div>
       </div>
 
@@ -313,11 +317,17 @@
       var subjectField = document.getElementById('omSubject');
       var timeField = document.getElementById('omTime');
 
+      // PayBox destination per book variant — printed and digital are separate
+      // payment groups with different amounts, so the link must follow the choice.
+      var payboxLinks = { printed: '', digital: '' };
+
       function open(btn) {
         var product = btn.getAttribute('data-product') || '';
         var sku = btn.getAttribute('data-sku') || '';
         var variants = (btn.getAttribute('data-variants') || '').split(',');
         var payboxUrl = btn.getAttribute('href') || '';
+        payboxLinks.printed = btn.getAttribute('data-paybox-printed') || payboxUrl;
+        payboxLinks.digital = btn.getAttribute('data-paybox-digital') || payboxUrl;
 
         productField.value = product;
         productDisplay.textContent = product;
@@ -369,6 +379,8 @@
           shippingBlock.hidden = !isPrinted;
           shippingBlock.querySelector('textarea').required = isPrinted;
           setAction(isPrinted ? 'printed' : 'digital-book');
+          // send the buyer to the PayBox group that matches the chosen price
+          nextInput.value = isPrinted ? payboxLinks.printed : payboxLinks.digital;
         }
       });
 
